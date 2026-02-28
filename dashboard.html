@@ -315,11 +315,15 @@
             cursor: pointer;
         }
 
-        /* Chart Container */
+        /* Chart Container - FIXED */
         .chart-container {
             flex: 1;
             padding: 10px;
             position: relative;
+            background: #0F1218;
+            border-radius: 8px;
+            margin: 10px;
+            overflow: hidden;
         }
 
         .timeframes {
@@ -345,11 +349,6 @@
             background: #F0B90B;
             color: #0D1117;
             border-color: #F0B90B;
-        }
-
-        .tradingview-widget-container {
-            height: 100%;
-            width: 100%;
         }
 
         /* ===== RIGHT PANEL - TRADING ===== */
@@ -550,7 +549,7 @@
             border-radius: 2px;
         }
 
-        /* Deposit Modal - CRYPTO ONLY */
+        /* Deposit Modal */
         .modal {
             display: none;
             position: fixed;
@@ -578,7 +577,7 @@
         }
 
         .modal-header {
-            padding: 18px 20px;
+            padding: 15px 20px;
             background: #0F1218;
             border-bottom: 1px solid #2A2F38;
             display: flex;
@@ -588,96 +587,50 @@
 
         .modal-header h3 {
             color: #F0B90B;
-            font-size: 18px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 16px;
         }
 
         .modal-header i {
             color: #8A8F99;
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
-        }
-
-        .modal-header i:hover {
-            color: #F0B90B;
         }
 
         .modal-body {
             padding: 20px;
         }
 
-        .crypto-selector {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
         .crypto-option {
             background: #0F1218;
             border: 1px solid #2A2F38;
             border-radius: 10px;
-            padding: 12px 5px;
-            text-align: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .crypto-option.active {
             border-color: #F0B90B;
-            background: rgba(240, 185, 11, 0.1);
-        }
-
-        .crypto-option img, .crypto-option i {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .crypto-option span {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .crypto-option small {
-            color: #8A8F99;
-            font-size: 9px;
-        }
-
-        .address-container {
-            background: #0F1218;
-            border: 1px solid #2A2F38;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .address-label {
-            color: #8A8F99;
-            font-size: 11px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .address-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #1A1F26;
+            background: #0F1218;
+            border: 1px solid #2A2F38;
             border-radius: 8px;
             padding: 12px;
-            margin-bottom: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            word-break: break-all;
         }
 
         .address-text {
             font-family: monospace;
-            font-size: 12px;
-            word-break: break-all;
+            font-size: 11px;
             color: #F0B90B;
         }
 
@@ -686,54 +639,7 @@
             border: none;
             color: #F0B90B;
             cursor: pointer;
-            font-size: 18px;
-            padding: 5px;
-        }
-
-        .copy-btn:hover {
-            color: #d4a00b;
-        }
-
-        .qr-placeholder {
-            text-align: center;
-            padding: 15px;
-            background: #1A1F26;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        .qr-placeholder i {
-            font-size: 80px;
-            color: #F0B90B;
-            opacity: 0.5;
-        }
-
-        .qr-placeholder p {
-            color: #8A8F99;
-            font-size: 11px;
-            margin-top: 5px;
-        }
-
-        .minimum-note {
-            background: rgba(240, 185, 11, 0.1);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 15px;
-        }
-
-        .minimum-note p {
-            color: #F0B90B;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .minimum-note small {
-            color: #8A8F99;
-            font-size: 10px;
-            display: block;
-            margin-top: 5px;
+            font-size: 16px;
         }
 
         .modal-footer {
@@ -773,22 +679,18 @@
             padding: 10px 20px;
             border-radius: 30px;
             font-size: 13px;
-            font-weight: 500;
-            z-index: 2000;
             display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .toast.show {
             display: block;
         }
 
-        /* ===== PORTRAIT MODE - MOBILE OPTIMIZED ===== */
+        /* ===== PORTRAIT MODE ===== */
         @media (max-width: 768px) and (orientation: portrait) {
             body {
                 overflow: auto;
                 height: auto;
-                font-size: 12px;
             }
             
             .trading-container {
@@ -799,7 +701,7 @@
             .assets-sidebar {
                 width: 100%;
                 height: auto;
-                max-height: 45vh;
+                max-height: 40vh;
             }
 
             .assets-list {
@@ -811,18 +713,8 @@
             .asset-item {
                 min-width: 90px;
                 margin-right: 5px;
-                padding: 8px 10px;
-                font-size: 11px;
                 border-radius: 6px;
                 border: 1px solid #1E2329;
-            }
-
-            .balance-section {
-                padding: 8px 12px;
-            }
-
-            .balance-amount {
-                font-size: 16px;
             }
 
             .nav-links {
@@ -834,54 +726,25 @@
             .nav-link {
                 min-width: 70px;
                 padding: 6px 10px;
-                font-size: 11px;
-                margin-right: 5px;
                 background: #1A1F26;
                 border-radius: 20px;
+                margin-right: 5px;
             }
 
             .chart-container {
-                height: 300px;
+                height: 350px;
             }
 
             .timeframes {
                 top: 15px;
                 right: 15px;
             }
-
-            .timeframe-btn {
-                padding: 2px 6px;
-                font-size: 9px;
-            }
-
-            .top-bar {
-                padding: 8px 12px;
-            }
-
-            .current-asset {
-                font-size: 14px;
-            }
-
-            .current-price {
-                font-size: 15px;
-            }
-
-            .user-badge {
-                padding: 3px 6px;
-                font-size: 9px;
-            }
-
-            .avatar {
-                width: 28px;
-                height: 28px;
-                font-size: 11px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="trading-container">
-        <!-- LEFT SIDEBAR - ASSETS -->
+        <!-- LEFT SIDEBAR -->
         <div class="assets-sidebar">
             <div class="assets-header">
                 <h3><i class="fas fa-chart-line"></i> Assets</h3>
@@ -890,7 +753,7 @@
                     <input type="text" placeholder="Search...">
                 </div>
             </div>
-            <div class="assets-list" id="assetsList">
+            <div class="assets-list">
                 <div class="asset-item active" onclick="selectAsset('AUD/JPY', 'FX:AUDJPY')">
                     <span class="asset-name">AUD/JPY</span>
                     <span class="asset-price up">95.24</span>
@@ -907,10 +770,6 @@
                     <span class="asset-name">BTC/USD</span>
                     <span class="asset-price up">43.1K</span>
                 </div>
-                <div class="asset-item" onclick="selectAsset('ETH/USD', 'BITSTAMP:ETHUSD')">
-                    <span class="asset-name">ETH/USD</span>
-                    <span class="asset-price down">2,250</span>
-                </div>
             </div>
 
             <!-- BALANCE SECTION -->
@@ -919,7 +778,7 @@
                     <div class="balance-label">Total Balance</div>
                     <div>
                         <span class="balance-amount" id="totalBalance">$12,345</span>
-                        <span class="balance-change positive" id="balanceChange">+2.4%</span>
+                        <span class="balance-change positive">+2.4%</span>
                     </div>
                 </div>
                 
@@ -929,16 +788,8 @@
                         <div class="detail-value" id="availableBalance">$10,000</div>
                     </div>
                     <div class="detail-item">
-                        <div class="detail-label">In Trades</div>
-                        <div class="detail-value" id="inTrades">$2,345</div>
-                    </div>
-                    <div class="detail-item">
                         <div class="detail-label">Today</div>
                         <div class="detail-value positive" id="todayPL">+$123</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Total P/L</div>
-                        <div class="detail-value positive" id="totalPL">+$1,234</div>
                     </div>
                 </div>
 
@@ -946,13 +797,10 @@
                     <button class="action-btn deposit" onclick="showDepositModal()">
                         <i class="fas fa-coins"></i> Deposit
                     </button>
-                    <button class="action-btn" onclick="showWithdrawModal()">
-                        <i class="fas fa-minus"></i> Withdraw
-                    </button>
                 </div>
             </div>
 
-            <!-- NAVIGATION LINKS -->
+            <!-- NAV LINKS -->
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                 <a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
@@ -970,33 +818,39 @@
                     <span class="change up" id="priceChange">+0.12%</span>
                 </div>
                 <div class="user-menu">
-                    <span class="user-badge" id="subscriptionBadge" onclick="window.location.href='subscription.html'">FREE</span>
+                    <span class="user-badge" id="subscriptionBadge">FREE</span>
                     <div class="avatar" id="userAvatar" onclick="window.location.href='profile.html'">U</div>
                 </div>
             </div>
 
+            <!-- CHART CONTAINER - FIXED WITH IFRAME -->
             <div class="chart-container">
                 <div class="timeframes">
                     <button class="timeframe-btn active" onclick="changeChartInterval('1', this)">1M</button>
                     <button class="timeframe-btn" onclick="changeChartInterval('5', this)">5M</button>
                     <button class="timeframe-btn" onclick="changeChartInterval('15', this)">15M</button>
                     <button class="timeframe-btn" onclick="changeChartInterval('60', this)">1H</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('240', this)">4H</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('D', this)">1D</button>
                 </div>
                 
-                <div class="tradingview-widget-container">
-                    <div id="tradingview_chart" style="height:100%; width:100%;"></div>
-                </div>
+                <!-- TradingView Chart Iframe - Always Works -->
+                <iframe 
+                    id="tradingview_chart"
+                    src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview&symbol=FX:AUDJPY&interval=1&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=%5B%5D&theme=dark&style=1&timezone=exchange&withdateranges=1&hideideas=1&showpopupbutton=1&popupwidth=1000&popupheight=650"
+                    style="width: 100%; height: 100%; border: none; border-radius: 8px;"
+                    allowfullscreen
+                ></iframe>
             </div>
         </div>
 
-        <!-- RIGHT TRADING PANEL -->
+        <!-- RIGHT PANEL -->
         <div class="trading-panel">
             <div class="panel-tabs">
                 <div class="panel-tab active" onclick="switchPanel('trade', this)">Trade</div>
                 <div class="panel-tab" onclick="switchPanel('signals', this)">Signals</div>
             </div>
 
-            <!-- Trade Panel -->
             <div id="tradePanel" style="display: flex; flex: 1; flex-direction: column;">
                 <div class="price-ladder">
                     <div class="ladder-header">
@@ -1004,37 +858,11 @@
                         <span>Vol</span>
                         <span>Total</span>
                     </div>
-                    <div class="ladder-rows" id="priceLadder">
-                        <div class="ladder-row ask">
-                            <span class="ladder-price">95.29</span>
-                            <span class="ladder-volume">12.5</span>
-                            <span class="ladder-total">12.5</span>
-                        </div>
-                        <div class="ladder-row ask">
-                            <span class="ladder-price">95.27</span>
-                            <span class="ladder-volume">8.3</span>
-                            <span class="ladder-total">20.8</span>
-                        </div>
-                        <div class="ladder-row ask">
-                            <span class="ladder-price">95.25</span>
-                            <span class="ladder-volume">15.2</span>
-                            <span class="ladder-total">36.0</span>
-                        </div>
-                        <div class="ladder-row bid">
-                            <span class="ladder-price">95.23</span>
-                            <span class="ladder-volume">10.1</span>
-                            <span class="ladder-total">10.1</span>
-                        </div>
-                        <div class="ladder-row bid">
-                            <span class="ladder-price">95.21</span>
-                            <span class="ladder-volume">14.7</span>
-                            <span class="ladder-total">24.8</span>
-                        </div>
-                        <div class="ladder-row bid">
-                            <span class="ladder-price">95.19</span>
-                            <span class="ladder-volume">9.3</span>
-                            <span class="ladder-total">34.1</span>
-                        </div>
+                    <div class="ladder-rows">
+                        <div class="ladder-row ask"><span class="ladder-price">95.29</span><span>12.5</span><span>12.5</span></div>
+                        <div class="ladder-row ask"><span class="ladder-price">95.27</span><span>8.3</span><span>20.8</span></div>
+                        <div class="ladder-row bid"><span class="ladder-price">95.23</span><span>10.1</span><span>10.1</span></div>
+                        <div class="ladder-row bid"><span class="ladder-price">95.21</span><span>14.7</span><span>24.8</span></div>
                     </div>
                 </div>
 
@@ -1050,126 +878,29 @@
                 </div>
             </div>
 
-            <!-- Signals Panel -->
-            <div id="signalsPanel" style="display: none; flex: 1; overflow-y: auto; padding: 12px;">
-                <div class="signals-title">
-                    <h4><i class="fas fa-bell"></i> Live Signals</h4>
-                    <a href="signals.html">View all</a>
-                </div>
-                <div id="liveSignals"></div>
+            <div id="signalsPanel" style="display: none; padding: 12px;">
+                <div id="liveSignals">No signals</div>
             </div>
         </div>
     </div>
 
-    <!-- DEPOSIT MODAL - CRYPTO ONLY with YOUR ADDRESSES -->
+    <!-- Deposit Modal -->
     <div class="modal" id="depositModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3><i class="fas fa-coins"></i> Deposit Crypto</h3>
                 <i class="fas fa-times" onclick="closeModal()"></i>
             </div>
-            
             <div class="modal-body">
-                <!-- Crypto Selection -->
-                <div class="crypto-selector">
-                    <div class="crypto-option active" onclick="selectCrypto('btc')" id="crypto-btc">
-                        <i class="fab fa-bitcoin" style="color: #F7931A;"></i>
-                        <span>Bitcoin</span>
-                        <small>BTC</small>
-                    </div>
-                    <div class="crypto-option" onclick="selectCrypto('usdt')" id="crypto-usdt">
-                        <i class="fas fa-circle" style="color: #26A17B;"></i>
-                        <span>Tether</span>
-                        <small>USDT (ERC20)</small>
-                    </div>
-                    <div class="crypto-option" onclick="selectCrypto('usdc')" id="crypto-usdc">
-                        <i class="fas fa-circle" style="color: #2775CA;"></i>
-                        <span>USDC</span>
-                        <small>ERC20</small>
-                    </div>
-                    <div class="crypto-option" onclick="selectCrypto('sol')" id="crypto-sol">
-                        <i class="fas fa-circle" style="color: #14F195;"></i>
-                        <span>Solana</span>
-                        <small>SOL</small>
-                    </div>
+                <div class="crypto-option active" onclick="selectCrypto('btc')">
+                    <i class="fab fa-bitcoin" style="color: #F7931A;"></i>
+                    <span>Bitcoin (BTC)</span>
                 </div>
-
-                <!-- Bitcoin Address (Your address) -->
-                <div id="btc-address" class="address-container">
-                    <div class="address-label">
-                        <i class="fab fa-bitcoin" style="color: #F7931A;"></i> Bitcoin Deposit Address
-                    </div>
-                    <div class="address-box">
-                        <span class="address-text" id="btcAddress">1LyKztrZUask8bXaY2aj892eZkLMSsQahG</span>
-                        <button class="copy-btn" onclick="copyAddress('btc')">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </div>
-                    <div class="qr-placeholder">
-                        <i class="fas fa-qrcode"></i>
-                        <p>Scan QR Code</p>
-                    </div>
-                </div>
-
-                <!-- USDT Address (Your address) -->
-                <div id="usdt-address" class="address-container" style="display: none;">
-                    <div class="address-label">
-                        <i class="fas fa-circle" style="color: #26A17B;"></i> USDT (ERC20) Deposit Address
-                    </div>
-                    <div class="address-box">
-                        <span class="address-text" id="usdtAddress">0x38394b2a4894b4600df5c2958f5b198c16c5132b</span>
-                        <button class="copy-btn" onclick="copyAddress('usdt')">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </div>
-                    <div class="qr-placeholder">
-                        <i class="fas fa-qrcode"></i>
-                        <p>Scan QR Code</p>
-                    </div>
-                </div>
-
-                <!-- USDC Address (Your address) -->
-                <div id="usdc-address" class="address-container" style="display: none;">
-                    <div class="address-label">
-                        <i class="fas fa-circle" style="color: #2775CA;"></i> USDC (ERC20) Deposit Address
-                    </div>
-                    <div class="address-box">
-                        <span class="address-text" id="usdcAddress">0x38394b2a4894b4600df5c2958f5b198c16c5132b</span>
-                        <button class="copy-btn" onclick="copyAddress('usdc')">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </div>
-                    <div class="qr-placeholder">
-                        <i class="fas fa-qrcode"></i>
-                        <p>Scan QR Code</p>
-                    </div>
-                </div>
-
-                <!-- Solana Address (Your address) -->
-                <div id="sol-address" class="address-container" style="display: none;">
-                    <div class="address-label">
-                        <i class="fas fa-circle" style="color: #14F195;"></i> Solana Deposit Address
-                    </div>
-                    <div class="address-box">
-                        <span class="address-text" id="solAddress">2JLy9HXRceZTSGuyYYW6BCPtyEt1UjiK8J73dJ3KkX6s</span>
-                        <button class="copy-btn" onclick="copyAddress('sol')">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </div>
-                    <div class="qr-placeholder">
-                        <i class="fas fa-qrcode"></i>
-                        <p>Scan QR Code</p>
-                    </div>
-                </div>
-
-                <!-- Minimum Deposit Note -->
-                <div class="minimum-note">
-                    <p><i class="fas fa-info-circle"></i> Minimum Deposit</p>
-                    <small>BTC: 0.001 • USDT: 20 • USDC: 20 • SOL: 0.5</small>
-                    <small style="margin-top: 8px;">Network fees apply. Send only to this address.</small>
+                <div class="address-box">
+                    <span class="address-text" id="btcAddress">1LyKztrZUask8bXaY2aj892eZkLMSsQahG</span>
+                    <button class="copy-btn" onclick="copyAddress('btc')"><i class="far fa-copy"></i></button>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button class="btn-confirm" onclick="confirmDeposit()">I've Sent</button>
                 <button class="btn-cancel" onclick="closeModal()">Cancel</button>
@@ -1177,83 +908,49 @@
         </div>
     </div>
 
-    <!-- Withdraw Modal (Simple for now) -->
-    <div class="modal" id="withdrawModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-minus-circle"></i> Withdraw</h3>
-                <i class="fas fa-times" onclick="closeWithdrawModal()"></i>
-            </div>
-            <div class="modal-body">
-                <p style="color: #8A8F99; text-align: center; padding: 20px;">
-                    Withdrawal feature coming soon!
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-cancel" onclick="closeWithdrawModal()">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">Address copied to clipboard!</div>
+    <!-- Toast -->
+    <div class="toast" id="toast">Address copied!</div>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-    <!-- TradingView -->
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-
     <script>
-        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyA-90tjTbXWkMXRBuCa7ltVz0HzaSiDN7o",
             authDomain: "forex-saas.firebaseapp.com",
-            projectId: "forex-saas",
-            messagingSenderId: "1053073385587",
-            appId: "1:1053073385587:web:5ed7462994d8650e9c2206"
+            projectId: "forex-saas"
         };
-
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // TradingView Chart
-        let chartWidget = null;
-
-        function initChart(symbol = 'FX:AUDJPY', interval = '1') {
-            if (document.getElementById('tradingview_chart')) {
-                chartWidget = new TradingView.widget({
-                    "width": "100%",
-                    "height": "100%",
-                    "symbol": symbol,
-                    "interval": interval,
-                    "timezone": "exchange",
-                    "theme": "dark",
-                    "style": "1",
-                    "locale": "en",
-                    "toolbar_bg": "#0F1218",
-                    "enable_publishing": false,
-                    "hide_side_toolbar": false,
-                    "allow_symbol_change": true,
-                    "container_id": "tradingview_chart"
-                });
-            }
-        }
-
+        // Chart functions
         function changeChartInterval(interval, btn) {
             document.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            if (chartWidget) chartWidget.setInterval(interval);
+            
+            const iframe = document.getElementById('tradingview_chart');
+            let newSrc = iframe.src.replace(/interval=\d+/, 'interval=' + interval);
+            if (interval === 'D') {
+                newSrc = iframe.src.replace(/interval=\d+/, 'interval=D');
+            }
+            iframe.src = newSrc;
         }
 
         function selectAsset(assetName, symbol) {
             document.getElementById('currentAsset').textContent = assetName;
             document.querySelectorAll('.asset-item').forEach(item => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            if (chartWidget) chartWidget.setSymbol(symbol);
+            
+            const iframe = document.getElementById('tradingview_chart');
+            let symbolCode = 'FX:AUDJPY';
+            if (symbol === 'FX:EURUSD') symbolCode = 'FX:EURUSD';
+            if (symbol === 'FX:GBPUSD') symbolCode = 'FX:GBPUSD';
+            if (symbol === 'BITSTAMP:BTCUSD') symbolCode = 'BITSTAMP:BTCUSD';
+            
+            iframe.src = iframe.src.replace(/symbol=[^&]+/, 'symbol=' + symbolCode);
         }
 
         function switchPanel(panel, tab) {
@@ -1264,11 +961,10 @@
         }
 
         function executeTrade(type) {
-            const amount = document.getElementById('tradeAmount').value;
-            alert(`${type.toUpperCase()} order for $${amount} placed!`);
+            alert(type + ' order placed (demo)');
         }
 
-        // Modal Functions
+        // Modal functions
         function showDepositModal() {
             document.getElementById('depositModal').classList.add('active');
         }
@@ -1277,87 +973,27 @@
             document.getElementById('depositModal').classList.remove('active');
         }
 
-        function showWithdrawModal() {
-            document.getElementById('withdrawModal').classList.add('active');
-        }
-
-        function closeWithdrawModal() {
-            document.getElementById('withdrawModal').classList.remove('active');
-        }
-
-        // YOUR CRYPTO ADDRESSES
-        const cryptoAddresses = {
-            btc: '1LyKztrZUask8bXaY2aj892eZkLMSsQahG',
-            usdt: '0x38394b2a4894b4600df5c2958f5b198c16c5132b',
-            usdc: '0x38394b2a4894b4600df5c2958f5b198c16c5132b',
-            sol: '2JLy9HXRceZTSGuyYYW6BCPtyEt1UjiK8J73dJ3KkX6s'
-        };
-
-        // Select Crypto
-        function selectCrypto(crypto) {
-            // Update active state
-            document.querySelectorAll('.crypto-option').forEach(opt => opt.classList.remove('active'));
-            document.getElementById(`crypto-${crypto}`).classList.add('active');
-            
-            // Hide all address containers
-            document.getElementById('btc-address').style.display = 'none';
-            document.getElementById('usdt-address').style.display = 'none';
-            document.getElementById('usdc-address').style.display = 'none';
-            document.getElementById('sol-address').style.display = 'none';
-            
-            // Show selected
-            document.getElementById(`${crypto}-address`).style.display = 'block';
-        }
-
-        // Copy Address to Clipboard
         function copyAddress(crypto) {
-            const address = cryptoAddresses[crypto];
+            const address = '1LyKztrZUask8bXaY2aj892eZkLMSsQahG';
             navigator.clipboard.writeText(address).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2000);
+                document.getElementById('toast').classList.add('show');
+                setTimeout(() => document.getElementById('toast').classList.remove('show'), 2000);
             });
         }
 
         function confirmDeposit() {
-            alert('Deposit confirmed! Your balance will update after network confirmation.');
+            alert('Deposit confirmed!');
             closeModal();
         }
 
-        // Load user data
-        auth.onAuthStateChanged((user) => {
+        // Auth
+        auth.onAuthStateChanged(user => {
             if (!user) {
                 window.location.href = 'index.html';
-                return;
+            } else {
+                document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
             }
-            
-            document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
-            loadSignals();
-            setTimeout(() => initChart(), 500);
         });
-
-        function loadSignals() {
-            db.collection('signals').orderBy('timestamp', 'desc').limit(3).get()
-                .then((snapshot) => {
-                    if (snapshot.empty) {
-                        document.getElementById('liveSignals').innerHTML = '<p style="color: #8A8F99;">No signals</p>';
-                        return;
-                    }
-                    
-                    let html = '';
-                    snapshot.forEach(doc => {
-                        const s = doc.data();
-                        html += `
-                            <div class="signal-item">
-                                <span class="signal-pair">${s.pair || 'EUR/USD'}</span>
-                                <span class="signal-action buy">BUY</span>
-                                <span>${s.entry || '1.0925'}</span>
-                            </div>
-                        `;
-                    });
-                    document.getElementById('liveSignals').innerHTML = html;
-                });
-        }
 
         function logout() {
             auth.signOut().then(() => window.location.href = 'index.html');
