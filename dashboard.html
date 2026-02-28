@@ -203,7 +203,7 @@
             background: #d4a00b;
         }
 
-        /* Navigation Links - ALL PAGES */
+        /* Navigation Links */
         .nav-links {
             padding: 12px 15px;
             border-top: 1px solid #1E2329;
@@ -557,7 +557,7 @@
             border-radius: 2px;
         }
 
-        /* Deposit Modal - CRYPTO ONLY */
+        /* Deposit Modal */
         .modal {
             display: none;
             position: fixed;
@@ -857,18 +857,20 @@
                 <div class="balance-card">
                     <div class="balance-label">Total Balance</div>
                     <div>
-                        <span class="balance-amount" id="totalBalance">$0.00</span>
+                        <!-- CHANGE THIS LINE TO $0 FOR NEW USERS -->
+                        <span class="balance-amount" id="totalBalance">$0</span>
+                        <span class="balance-change positive" id="balanceChange">+0%</span>
                     </div>
                 </div>
                 
                 <div class="balance-details">
                     <div class="detail-item">
                         <div class="detail-label">Available</div>
-                        <div class="detail-value" id="availableBalance">$0.00</div>
+                        <div class="detail-value" id="availableBalance">$0</div>
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Today</div>
-                        <div class="detail-value positive" id="todayPL">+$0.00</div>
+                        <div class="detail-value positive" id="todayPL">+$0</div>
                     </div>
                 </div>
 
@@ -879,7 +881,7 @@
                 </div>
             </div>
 
-            <!-- NAVIGATION LINKS - ALL PAGES RESTORED -->
+            <!-- NAVIGATION LINKS -->
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                 <a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
@@ -994,7 +996,7 @@
         </div>
     </div>
 
-    <!-- DEPOSIT MODAL - WITH ALL CRYPTO OPTIONS RESTORED -->
+    <!-- DEPOSIT MODAL - ALL CRYPTO OPTIONS -->
     <div class="modal" id="depositModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1003,7 +1005,6 @@
             </div>
             
             <div class="modal-body">
-                <!-- Crypto Options -->
                 <div class="crypto-options">
                     <div class="crypto-option active" onclick="selectCrypto('btc')" id="crypto-btc">
                         <i class="fab fa-bitcoin" style="color: #F7931A;"></i>
@@ -1087,7 +1088,6 @@
                     </div>
                 </div>
 
-                <!-- Minimum Note -->
                 <div class="minimum-note">
                     <p><i class="fas fa-info-circle"></i> Minimum Deposit</p>
                     <small>BTC: 0.001 • USDT: 20 • USDC: 20 • SOL: 0.5</small>
@@ -1101,15 +1101,11 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">Address copied to clipboard!</div>
+    <div class="toast" id="toast">Address copied!</div>
 
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-    <!-- TradingView -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
     <script>
@@ -1123,8 +1119,9 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // TradingView Chart
         let chartWidget = null;
+        let userBalance = 0;
+        let userAvailable = 0;
 
         function initChart(symbol = 'FX:AUDJPY', interval = '1') {
             if (document.getElementById('tradingview_chart')) {
@@ -1144,18 +1141,14 @@
         function changeChartInterval(interval, btn) {
             document.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            if (chartWidget) {
-                chartWidget.setInterval(interval);
-            }
+            if (chartWidget) chartWidget.setInterval(interval);
         }
 
         function selectAsset(assetName, symbol) {
             document.getElementById('currentAsset').textContent = assetName;
             document.querySelectorAll('.asset-item').forEach(item => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            if (chartWidget) {
-                chartWidget.setSymbol(symbol);
-            }
+            if (chartWidget) chartWidget.setSymbol(symbol);
         }
 
         function switchPanel(panel, tab) {
@@ -1165,12 +1158,34 @@
             document.getElementById('signalsPanel').style.display = panel === 'signals' ? 'block' : 'none';
         }
 
-        function executeTrade(type) {
-            const amount = document.getElementById('tradeAmount').value;
-            alert(`${type} order for $${amount} placed!`);
+        async function loadUserData(user) {
+            const doc = await db.collection('users').doc(user.uid).get();
+            if (doc.exists) {
+                const data = doc.data();
+                userBalance = data.balance || 0;
+                userAvailable = data.available || 0;
+                
+                document.getElementById('totalBalance').textContent = '$' + userBalance.toFixed(2);
+                document.getElementById('availableBalance').textContent = '$' + userAvailable.toFixed(2);
+                
+                const badge = document.getElementById('subscriptionBadge');
+                if (data.subscription === 'active') {
+                    badge.textContent = 'VIP';
+                    badge.style.background = 'rgba(2,192,118,0.1)';
+                    badge.style.color = '#02C076';
+                }
+            }
         }
 
-        // Modal Functions
+        function executeTrade(type) {
+            const amount = parseFloat(document.getElementById('tradeAmount').value);
+            if (amount > userAvailable) {
+                alert('Insufficient balance!');
+                return;
+            }
+            alert(type + ' order placed for $' + amount);
+        }
+
         function showDepositModal() {
             document.getElementById('depositModal').classList.add('active');
         }
@@ -1179,7 +1194,6 @@
             document.getElementById('depositModal').classList.remove('active');
         }
 
-        // Crypto selection
         function selectCrypto(crypto) {
             document.querySelectorAll('.crypto-option').forEach(opt => opt.classList.remove('active'));
             document.getElementById(`crypto-${crypto}`).classList.add('active');
@@ -1188,11 +1202,9 @@
             document.getElementById('usdt-address').style.display = 'none';
             document.getElementById('usdc-address').style.display = 'none';
             document.getElementById('sol-address').style.display = 'none';
-            
             document.getElementById(`${crypto}-address`).style.display = 'block';
         }
 
-        // Copy address
         function copyAddress(crypto) {
             const addresses = {
                 btc: '1LyKztrZUask8bXaY2aj892eZkLMSsQahG',
@@ -1200,7 +1212,6 @@
                 usdc: '0x38394b2a4894b4600df5c2958f5b198c16c5132b',
                 sol: '2JLy9HXRceZTSGuyYYW6BCPtyEt1UjiK8J73dJ3KkX6s'
             };
-            
             navigator.clipboard.writeText(addresses[crypto]).then(() => {
                 document.getElementById('toast').classList.add('show');
                 setTimeout(() => document.getElementById('toast').classList.remove('show'), 2000);
@@ -1212,7 +1223,6 @@
             closeModal();
         }
 
-        // Load signals
         function loadSignals() {
             db.collection('signals').orderBy('timestamp', 'desc').limit(3).get()
                 .then((snapshot) => {
@@ -1220,7 +1230,6 @@
                         document.getElementById('liveSignals').innerHTML = '<p style="color: #8A8F99;">No signals</p>';
                         return;
                     }
-                    
                     let html = '';
                     snapshot.forEach(doc => {
                         const s = doc.data();
@@ -1236,22 +1245,19 @@
                 });
         }
 
-        // Auth
         auth.onAuthStateChanged((user) => {
             if (!user) {
                 window.location.href = 'index.html';
                 return;
             }
-            
             document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
+            loadUserData(user);
             loadSignals();
             setTimeout(() => initChart(), 500);
         });
 
         function logout() {
-            auth.signOut().then(() => {
-                window.location.href = 'index.html';
-            });
+            auth.signOut().then(() => window.location.href = 'index.html');
         }
     </script>
 </body>
