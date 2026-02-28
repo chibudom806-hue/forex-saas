@@ -1,608 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FX Pro • Global Trading</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --binance-bg: #0B0E11;
-            --binance-card: #1E2329;
-            --binance-yellow: #F0B90B;
-            --binance-text: #EAECEF;
-            --binance-text-secondary: #848E9C;
-            --binance-border: #2B3139;
-            --binance-green: #02C076;
-            --binance-red: #F6465D;
-        }
+// SIGNUP FUNCTION - FIXED TO SAVE TO BOTH AUTH AND DATA
+function signup() {
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPass = document.getElementById('confirmPassword').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const middleName = document.getElementById('middleName').value;
+    const dob = document.getElementById('dob').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const city = document.getElementById('city').value;
+    const state = document.getElementById('state').value;
+    const country = document.getElementById('country').value;
+    const postalCode = document.getElementById('postalCode').value;
+    const occupation = document.getElementById('occupation').value;
+    const experience = document.getElementById('experience').value;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    // Validate required fields
+    if (!firstName || !lastName || !email || !password || !confirmPass || !dob || !phone || !address || !city || !state || !country || !postalCode || !occupation) {
+        alert('Please fill in all required fields');
+        return;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--binance-bg);
-            color: var(--binance-text);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+    if (password !== confirmPass) {
+        alert('Passwords do not match');
+        return;
+    }
 
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            background: var(--binance-card);
-            border-radius: 24px;
-            padding: 40px;
-            border: 1px solid var(--binance-border);
-        }
+    if (password.length < 6) {
+        alert('Password must be at least 6 characters');
+        return;
+    }
 
-        /* Left Side - Branding */
-        .brand-side {
-            padding: 40px;
-        }
+    // Show loading message
+    alert('Creating account...');
 
-        .logo {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--binance-yellow);
-            margin-bottom: 40px;
-        }
-
-        .logo i {
-            margin-right: 10px;
-        }
-
-        .features {
-            list-style: none;
-        }
-
-        .features li {
-            margin: 30px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .features li i {
-            width: 40px;
-            height: 40px;
-            background: rgba(240, 185, 11, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--binance-yellow);
-        }
-
-        .features li h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .features li p {
-            color: var(--binance-text-secondary);
-            font-size: 14px;
-        }
-
-        /* Right Side - Forms */
-        .forms-side {
-            background: var(--binance-bg);
-            border-radius: 16px;
-            padding: 40px;
-            border: 1px solid var(--binance-border);
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--binance-border);
-            padding-bottom: 20px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--binance-text-secondary);
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 10px 0;
-            position: relative;
-        }
-
-        .tab-btn.active {
-            color: var(--binance-yellow);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -21px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--binance-yellow);
-        }
-
-        .form {
-            display: none;
-        }
-
-        .form.active {
-            display: block;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group.full-width {
-            grid-column: span 2;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--binance-text-secondary);
-            font-size: 14px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--binance-card);
-            border: 1px solid var(--binance-border);
-            border-radius: 8px;
-            color: var(--binance-text);
-            font-size: 14px;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--binance-yellow);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--binance-yellow);
-            color: var(--binance-bg);
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background: #C99400;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--binance-yellow);
-            color: var(--binance-yellow);
-        }
-
-        .forgot-password {
-            text-align: right;
-            margin-top: 10px;
-        }
-
-        .forgot-password a {
-            color: var(--binance-yellow);
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .message-box {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .message-box.success {
-            background: rgba(2, 192, 118, 0.1);
-            color: var(--binance-green);
-            border: 1px solid var(--binance-green);
-            display: block;
-        }
-
-        .message-box.error {
-            background: rgba(246, 70, 93, 0.1);
-            color: var(--binance-red);
-            border: 1px solid var(--binance-red);
-            display: block;
-        }
-
-        .verification-note {
-            font-size: 12px;
-            color: var(--binance-text-secondary);
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .brand-side {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Left Side - Branding -->
-        <div class="brand-side">
-            <div class="logo">
-                <i class="fas fa-chart-line"></i> FX PRO
-            </div>
-            <ul class="features">
-                <li>
-                    <i class="fas fa-bolt"></i>
-                    <div>
-                        <h3>Live Forex Signals</h3>
-                        <p>Real-time entry, TP, and SL levels</p>
-                    </div>
-                </li>
-                <li>
-                    <i class="fas fa-globe"></i>
-                    <div>
-                        <h3>Global Platform</h3>
-                        <p>Available in 150+ countries</p>
-                    </div>
-                </li>
-                <li>
-                    <i class="fas fa-shield-alt"></i>
-                    <div>
-                        <h3>Secure Platform</h3>
-                        <p>Email verification & account protection</p>
-                    </div>
-                </li>
-                <li>
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h3>24/7 Support</h3>
-                        <p>We're here to help</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Right Side - Forms -->
-        <div class="forms-side">
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
-                <button class="tab-btn" onclick="switchTab('signup')">Create Account</button>
-            </div>
-
-            <!-- Message Display -->
-            <div id="messageBox" class="message-box"></div>
-
-            <!-- LOGIN FORM -->
-            <div id="loginForm" class="form active">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="your@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••">
-                </div>
-                <div class="forgot-password">
-                    <a href="#" onclick="showForgotPassword(); return false;">Forgot password?</a>
-                </div>
-                <button class="btn" onclick="login()">Login to Account</button>
-            </div>
-
-            <!-- FORGOT PASSWORD FORM -->
-            <div id="forgotPasswordForm" class="form">
-                <h3 style="color: var(--binance-yellow); margin-bottom: 20px;">Reset Password</h3>
-                <p style="color: var(--binance-text-secondary); margin-bottom: 20px;">Enter your email and we'll send you a password reset link.</p>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="resetEmail" placeholder="your@email.com">
-                </div>
-                <button class="btn" onclick="resetPassword()">Send Reset Link</button>
-                <button class="btn btn-secondary" onclick="backToLogin(); return false;" style="margin-top: 10px;">Back to Login</button>
-            </div>
-
-            <!-- SIGNUP FORM with GLOBAL FIELDS -->
-            <div id="signupForm" class="form">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>First Name *</label>
-                        <input type="text" id="firstName" placeholder="John">
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name *</label>
-                        <input type="text" id="lastName" placeholder="Doe">
-                    </div>
-                    <div class="form-group">
-                        <label>Date of Birth *</label>
-                        <input type="date" id="dob">
-                    </div>
-                    <div class="form-group">
-                        <label>Country *</label>
-                        <select id="country" onchange="updateCurrency()">
-                            <option value="">Select Country</option>
-                            <option value="US">United States</option>
-                            <option value="GB">United Kingdom</option>
-                            <option value="DE">Germany</option>
-                            <option value="FR">France</option>
-                            <option value="ES">Spain</option>
-                            <option value="IT">Italy</option>
-                            <option value="JP">Japan</option>
-                            <option value="CN">China</option>
-                            <option value="IN">India</option>
-                            <option value="BR">Brazil</option>
-                            <option value="AU">Australia</option>
-                            <option value="CA">Canada</option>
-                            <option value="ZA">South Africa</option>
-                            <option value="NG">Nigeria</option>
-                            <option value="KE">Kenya</option>
-                            <option value="AE">UAE</option>
-                            <option value="SG">Singapore</option>
-                            <option value="MY">Malaysia</option>
-                            <option value="ID">Indonesia</option>
-                            <option value="PK">Pakistan</option>
-                            <option value="BD">Bangladesh</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Email Address *</label>
-                        <input type="email" id="signupEmail" placeholder="your@email.com">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Password *</label>
-                        <input type="password" id="signupPassword" placeholder="••••••••">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Confirm Password *</label>
-                        <input type="password" id="confirmPassword" placeholder="••••••••">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="phone" placeholder="+1234567890">
-                    </div>
-                </div>
-                
-                <p style="color: var(--binance-text-secondary); font-size: 12px; margin: 10px 0;">
-                    <i class="fas fa-info-circle"></i> By creating an account, you confirm that you are compliant with your local financial regulations.
-                </p>
-                
-                <button class="btn" onclick="signup()">Create Account</button>
-                <div class="verification-note">
-                    <i class="fas fa-envelope"></i> We'll send a verification link to your email
-                </div>
-            </div>
-
-            <!-- VERIFICATION NOTICE -->
-            <div id="verificationNotice" class="form">
-                <div style="text-align: center; padding: 20px;">
-                    <i class="fas fa-envelope" style="font-size: 64px; color: var(--binance-yellow); margin-bottom: 20px;"></i>
-                    <h3 style="color: var(--binance-yellow); margin-bottom: 15px;">Verify Your Email</h3>
-                    <p style="color: var(--binance-text-secondary); margin-bottom: 20px;">
-                        We've sent a verification link to:<br>
-                        <strong id="verifiedEmail" style="color: var(--binance-yellow);"></strong>
-                    </p>
-                    <button class="btn" onclick="checkVerification()">I've Verified My Email</button>
-                    <button class="btn btn-secondary" onclick="resendVerification()" style="margin-top: 10px;">Resend</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyA-90tjTbXWkMXRBuCa7ltVz0HzaSiDN7o",
-            authDomain: "forex-saas.firebaseapp.com",
-            projectId: "forex-saas"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Currency mapping
-        const currencyMap = {
-            'US': { code: 'USD', symbol: '$' },
-            'GB': { code: 'GBP', symbol: '£' },
-            'DE': { code: 'EUR', symbol: '€' },
-            'FR': { code: 'EUR', symbol: '€' },
-            'ES': { code: 'EUR', symbol: '€' },
-            'IT': { code: 'EUR', symbol: '€' },
-            'JP': { code: 'JPY', symbol: '¥' },
-            'CN': { code: 'CNY', symbol: '¥' },
-            'IN': { code: 'INR', symbol: '₹' },
-            'BR': { code: 'BRL', symbol: 'R$' },
-            'AU': { code: 'AUD', symbol: 'A$' },
-            'CA': { code: 'CAD', symbol: 'C$' },
-            'ZA': { code: 'ZAR', symbol: 'R' },
-            'NG': { code: 'NGN', symbol: '₦' },
-            'KE': { code: 'KES', symbol: 'KSh' },
-            'AE': { code: 'AED', symbol: 'د.إ' },
-            'SG': { code: 'SGD', symbol: 'S$' },
-            'MY': { code: 'MYR', symbol: 'RM' },
-            'ID': { code: 'IDR', symbol: 'Rp' },
-            'PK': { code: 'PKR', symbol: '₨' },
-            'BD': { code: 'BDT', symbol: '৳' },
-            'Other': { code: 'USD', symbol: '$' }
-        };
-
-        // Restricted countries
-        const restrictedCountries = ['US', 'CA', 'KR', 'RU', 'IR', 'IQ', 'SY', 'MM', 'BY', 'KP', 'EG', 'PK'];
-
-        function updateCurrency() {
-            const country = document.getElementById('country').value;
-            const currencyInfo = currencyMap[country] || { code: 'USD', symbol: '$' };
-            console.log(`Selected currency: ${currencyInfo.code}`);
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
-            
-            if (tab === 'login') {
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.getElementById('loginForm').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                document.getElementById('signupForm').classList.add('active');
-            }
-        }
-
-        function showForgotPassword() {
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('forgotPasswordForm').classList.add('active');
-        }
-
-        function backToLogin() {
-            document.getElementById('forgotPasswordForm').classList.remove('active');
-            document.getElementById('verificationNotice').classList.remove('active');
-            document.getElementById('loginForm').classList.add('active');
-        }
-
-        function resetPassword() {
-            const email = document.getElementById('resetEmail').value;
-            if (!email) {
-                alert('Please enter your email');
-                return;
-            }
-            auth.sendPasswordResetEmail(email)
+    // Create user in AUTHENTICATION
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Send email verification
+            return userCredential.user.sendEmailVerification()
                 .then(() => {
-                    alert('Password reset link sent! Check your email.');
-                    backToLogin();
-                })
-                .catch(error => alert(error.message));
-        }
-
-        // SIGNUP with country detection
-        function signup() {
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPass = document.getElementById('confirmPassword').value;
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const dob = document.getElementById('dob').value;
-            const phone = document.getElementById('phone').value;
-            const country = document.getElementById('country').value;
-
-            if (!firstName || !lastName || !email || !password || !confirmPass || !dob || !phone || !country) {
-                alert('Please fill all required fields');
-                return;
-            }
-
-            if (password !== confirmPass) {
-                alert('Passwords do not match');
-                return;
-            }
-
-            // Check if country is restricted
-            if (restrictedCountries.includes(country)) {
-                alert('⚠️ Due to local regulations, we cannot accept users from your country at this time.');
-                return;
-            }
-
-            const currencyInfo = currencyMap[country] || { code: 'USD', symbol: '$' };
-            const language = navigator.language || 'en';
-
-            auth.createUserWithEmailAndPassword(email, password)
-                .then(userCredential => {
-                    return userCredential.user.sendEmailVerification()
-                        .then(() => {
-                            return db.collection('users').doc(userCredential.user.uid).set({
-                                firstName: firstName,
-                                lastName: lastName,
-                                fullName: firstName + ' ' + lastName,
-                                email: email,
-                                phone: phone,
-                                dateOfBirth: dob,
-                                country: country,
-                                countryCode: country,
-                                preferredCurrency: currencyInfo.code,
-                                currencySymbol: currencyInfo.symbol,
-                                preferredLanguage: language,
-                                role: 'user',
-                                subscription: 'inactive',
-                                emailVerified: false,
-                                createdAt: new Date().toISOString(),
-                                lastLogin: new Date().toISOString(),
-                                balance: 0,
-                                available: 0,
-                                totalTrades: 0,
-                                winRate: 0,
-                                totalPips: 0
-                            });
-                        });
-                })
-                .then(() => {
-                    document.getElementById('verifiedEmail').textContent = email;
-                    document.getElementById('signupForm').classList.remove('active');
-                    document.getElementById('verificationNotice').classList.add('active');
-                })
-                .catch(error => alert(error.message));
-        }
-
-        function checkVerification() {
-            auth.currentUser.reload().then(() => {
-                if (auth.currentUser.emailVerified) {
-                    window.location.href = 'dashboard.html';
-                } else {
-                    alert('Email not verified yet');
-                }
-            });
-        }
-
-        function resendVerification() {
-            auth.currentUser.sendEmailVerification()
-                .then(() => alert('Verification email sent!'))
-                .catch(error => alert(error.message));
-        }
-
-        function login() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            auth.signInWithEmailAndPassword(email, password)
-                .then(userCredential => {
-                    if (!userCredential.user.emailVerified) {
-                        document.getElementById('verifiedEmail').textContent = email;
-                        document.getElementById('loginForm').classList.remove('active');
-                        document.getElementById('verificationNotice').classList.add('active');
-                        return;
-                    }
-                    window.location.href = 'dashboard.html';
-                })
-                .catch(() => alert('Invalid email or password'));
-        }
-    </script>
-</body>
-</html>
+                    // Save user data to DATA - THIS WAS MISSING!
+                    return db.collection('users').doc(userCredential.user.uid).set({
+                        firstName: firstName,
+                        middleName: middleName || '',
+                        lastName: lastName,
+                        fullName: firstName + ' ' + (middleName ? middleName + ' ' : '') + lastName,
+                        email: email,
+                        phone: phone,
+                        dateOfBirth: dob,
+                        address: address,
+                        city: city,
+                        state: state,
+                        country: country,
+                        postalCode: postalCode,
+                        occupation: occupation,
+                        experience: experience,
+                        role: 'user',
+                        subscription: 'inactive',
+                        emailVerified: false,
+                        createdAt: new Date().toISOString(),
+                        lastLogin: new Date().toISOString(),
+                        balance: 0,
+                        available: 0,
+                        totalTrades: 0,
+                        winRate: 0,
+                        totalPips: 0
+                    });
+                });
+        })
+        .then(() => {
+            alert('✅ Account created! Please check your email for verification.');
+            document.getElementById('verifiedEmail').textContent = email;
+            document.getElementById('signupForm').classList.remove('active');
+            document.getElementById('verificationNotice').classList.add('active');
+        })
+        .catch((error) => {
+            alert('❌ Error: ' + error.message);
+        });
+}
