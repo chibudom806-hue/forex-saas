@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FX Pro • Login</title>
+    <title>FX Pro • Sign Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -262,51 +262,12 @@
             text-decoration: underline;
         }
 
-        /* ===== PORTRAIT MODE FOR LOGIN ===== */
-        @media (max-width: 768px) and (orientation: portrait) {
-            body {
-                padding: 10px;
-                align-items: flex-start;
-            }
-
+        @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
-                padding: 20px;
-                gap: 20px;
             }
-            
             .brand-side {
                 display: none;
-            }
-            
-            .forms-side {
-                padding: 20px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-            
-            .tab-buttons {
-                flex-direction: row;
-                gap: 10px;
-            }
-            
-            .tab-btn {
-                font-size: 16px;
-                padding: 8px 0;
-            }
-            
-            .tab-btn.active::after {
-                bottom: -18px;
-            }
-
-            .forgot-password {
-                text-align: center;
             }
         }
     </style>
@@ -388,7 +349,7 @@
                 <button class="btn btn-secondary" onclick="backToLogin(); return false;" style="margin-top: 10px;">Back to Login</button>
             </div>
 
-            <!-- SIGNUP FORM with ALL FIELDS -->
+            <!-- SIGNUP FORM with ALL FIELDS and ZERO BALANCE -->
             <div id="signupForm" class="form">
                 <div class="form-grid">
                     <div class="form-group">
@@ -471,7 +432,7 @@
                 </div>
             </div>
 
-            <!-- VERIFICATION NOTICE (shown after signup) -->
+            <!-- VERIFICATION NOTICE -->
             <div id="verificationNotice" class="form">
                 <div style="text-align: center; padding: 20px;">
                     <i class="fas fa-envelope" style="font-size: 64px; color: var(--binance-yellow); margin-bottom: 20px;"></i>
@@ -513,7 +474,6 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Switch between Login and Signup tabs
         function switchTab(tab) {
             document.getElementById('messageBox').style.display = 'none';
             
@@ -534,14 +494,12 @@
             }
         }
 
-        // Show forgot password form
         function showForgotPassword() {
             document.getElementById('loginForm').classList.remove('active');
             document.getElementById('forgotPasswordForm').classList.add('active');
             document.getElementById('messageBox').style.display = 'none';
         }
 
-        // Back to login
         function backToLogin() {
             document.getElementById('forgotPasswordForm').classList.remove('active');
             document.getElementById('verificationNotice').classList.remove('active');
@@ -552,7 +510,6 @@
             document.querySelectorAll('.tab-btn')[1].classList.remove('active');
         }
 
-        // Reset password
         function resetPassword() {
             const email = document.getElementById('resetEmail').value;
             
@@ -573,9 +530,8 @@
                 });
         }
 
-        // Signup function with email verification
+        // SIGNUP FUNCTION with ZERO BALANCE
         function signup() {
-            // Get all form values
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const confirmPass = document.getElementById('confirmPassword').value;
@@ -592,33 +548,28 @@
             const occupation = document.getElementById('occupation').value;
             const experience = document.getElementById('experience').value;
 
-            // Validate required fields
             if (!firstName || !lastName || !email || !password || !confirmPass || !dob || !phone || !address || !city || !state || !country || !postalCode || !occupation) {
                 showMessage('Please fill in all required fields', 'error');
                 return;
             }
 
-            // Validate password match
             if (password !== confirmPass) {
                 showMessage('Passwords do not match', 'error');
                 return;
             }
 
-            // Validate password strength
             if (password.length < 6) {
                 showMessage('Password must be at least 6 characters', 'error');
                 return;
             }
 
-            // Create user
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    // Send email verification
                     return userCredential.user.sendEmailVerification({
                         url: window.location.origin + '/dashboard.html',
                         handleCodeInApp: true
                     }).then(() => {
-                        // Save user data to Firestore
+                        // Save user data with ZERO BALANCE
                         return db.collection('users').doc(userCredential.user.uid).set({
                             firstName: firstName,
                             middleName: middleName || '',
@@ -639,16 +590,17 @@
                             emailVerified: false,
                             createdAt: new Date().toISOString(),
                             lastLogin: new Date().toISOString(),
+                            
+                            // ===== BALANCE FIELDS - SET TO ZERO =====
+                            balance: 0,
+                            available: 0,
                             totalTrades: 0,
                             winRate: 0,
                             totalPips: 0
                         }).then(() => {
-                            // Show verification notice
                             document.getElementById('verifiedEmail').textContent = email;
                             document.getElementById('signupForm').classList.remove('active');
                             document.getElementById('verificationNotice').classList.add('active');
-                            
-                            // Hide tab buttons
                             document.querySelector('.tab-buttons').style.display = 'none';
                         });
                     });
@@ -658,11 +610,9 @@
                 });
         }
 
-        // Check if email is verified
         function checkVerification() {
             auth.currentUser.reload().then(() => {
                 if (auth.currentUser.emailVerified) {
-                    // Update user record
                     db.collection('users').doc(auth.currentUser.uid).update({
                         emailVerified: true
                     }).then(() => {
@@ -674,7 +624,6 @@
             });
         }
 
-        // Resend verification email
         function resendVerification() {
             auth.currentUser.sendEmailVerification()
                 .then(() => {
@@ -685,16 +634,13 @@
                 });
         }
 
-        // Login function
         function login() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    // Check if email is verified
                     if (!userCredential.user.emailVerified) {
-                        // Show verification needed message
                         document.getElementById('verifiedEmail').textContent = email;
                         document.getElementById('loginForm').classList.remove('active');
                         document.getElementById('verificationNotice').classList.add('active');
@@ -702,7 +648,6 @@
                         return;
                     }
                     
-                    // Update last login
                     db.collection('users').doc(userCredential.user.uid).update({
                         lastLogin: new Date().toISOString()
                     });
@@ -713,7 +658,6 @@
                 });
         }
 
-        // Show message
         function showMessage(text, type) {
             const box = document.getElementById('messageBox');
             box.textContent = text;
@@ -725,7 +669,6 @@
             }, 5000);
         }
 
-        // Check if already logged in
         auth.onAuthStateChanged((user) => {
             if (user && user.emailVerified && window.location.pathname.includes('index.html')) {
                 window.location.href = 'dashboard.html';
