@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>FX Pro • Global Trading</title>
+    <title>FX Pro • Trading</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -26,26 +26,7 @@
             height: 100vh;
         }
 
-        /* Compliance Banner */
-        .compliance-banner {
-            background: #F0B90B;
-            color: #0D1117;
-            padding: 8px;
-            text-align: center;
-            font-size: 11px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            display: none;
-        }
-
-        .compliance-banner.show {
-            display: block;
-        }
-
-        /* ===== LEFT SIDEBAR ===== */
+        /* ===== LEFT SIDEBAR - ASSETS ===== */
         .assets-sidebar {
             background: #0F1218;
             border-right: 1px solid #1E2329;
@@ -63,6 +44,11 @@
             font-size: 14px;
         }
 
+        .assets-header h3 i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
         .search-box {
             margin-top: 10px;
             background: #1A1F26;
@@ -76,6 +62,7 @@
         .search-box i {
             color: #5A5F69;
             margin-right: 6px;
+            font-size: 12px;
         }
 
         .search-box input {
@@ -103,9 +90,23 @@
             font-size: 13px;
         }
 
+        .asset-item:hover {
+            background: #1A1F26;
+        }
+
         .asset-item.active {
             background: #1A1F26;
             border-left-color: #F0B90B;
+        }
+
+        .asset-name {
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .asset-price {
+            font-family: monospace;
+            font-size: 12px;
         }
 
         .asset-price.up { color: #02C076; }
@@ -126,25 +127,10 @@
             margin-bottom: 8px;
         }
 
-        .balance-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
         .balance-label {
             color: #8A8F99;
             font-size: 11px;
-        }
-
-        .currency-selector {
-            background: #1E2329;
-            color: white;
-            border: 1px solid #2A2F38;
-            border-radius: 4px;
-            padding: 2px 4px;
-            font-size: 10px;
+            margin-bottom: 3px;
         }
 
         .balance-amount {
@@ -152,6 +138,14 @@
             font-weight: 700;
             color: #F0B90B;
         }
+
+        .balance-change {
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        .balance-change.positive { color: #02C076; }
+        .balance-change.negative { color: #F6465D; }
 
         .balance-details {
             display: grid;
@@ -192,6 +186,10 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
         }
 
         .action-btn.deposit {
@@ -201,34 +199,48 @@
             font-weight: 600;
         }
 
-        /* Navigation */
+        .action-btn.deposit:hover {
+            background: #d4a00b;
+        }
+
+        /* Navigation Links - ALL PAGES */
         .nav-links {
             padding: 12px 15px;
             border-top: 1px solid #1E2329;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
         }
 
         .nav-link {
-            padding: 8px;
+            padding: 6px 10px;
             color: #8A8F99;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             border-radius: 5px;
-            font-size: 12px;
+            font-size: 11px;
+            background: #1A1F26;
         }
 
         .nav-link:hover {
-            background: #1A1F26;
+            background: #2A2F38;
             color: white;
         }
 
         .nav-link i {
-            width: 16px;
             color: #F0B90B;
+            font-size: 11px;
         }
 
-        /* Top Bar */
+        /* ===== MAIN CHART AREA ===== */
+        .chart-area {
+            background: #0D1117;
+            display: flex;
+            flex-direction: column;
+        }
+
         .top-bar {
             padding: 10px 15px;
             background: #0F1218;
@@ -255,20 +267,28 @@
         }
 
         .current-price.up { color: #02C076; }
+        .current-price.down { color: #F6465D; }
+
+        .change {
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .change.up {
+            background: rgba(2, 192, 118, 0.1);
+            color: #02C076;
+        }
+
+        .change.down {
+            background: rgba(246, 70, 93, 0.1);
+            color: #F6465D;
+        }
 
         .user-menu {
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-
-        .language-selector {
-            background: #1E2329;
-            color: white;
-            border: 1px solid #2A2F38;
-            border-radius: 15px;
-            padding: 4px 8px;
-            font-size: 10px;
         }
 
         .user-badge {
@@ -279,6 +299,10 @@
             cursor: pointer;
         }
 
+        .user-badge:hover {
+            background: #2A2F38;
+        }
+
         .avatar {
             width: 30px;
             height: 30px;
@@ -287,12 +311,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 600;
             font-size: 12px;
             color: #0D1117;
             cursor: pointer;
         }
 
-        /* Chart */
+        /* Chart Container */
         .chart-container {
             flex: 1;
             padding: 10px;
@@ -321,9 +346,15 @@
         .timeframe-btn.active {
             background: #F0B90B;
             color: #0D1117;
+            border-color: #F0B90B;
         }
 
-        /* Right Panel */
+        .tradingview-widget-container {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* ===== RIGHT PANEL - TRADING ===== */
         .trading-panel {
             background: #0F1218;
             border-left: 1px solid #1E2329;
@@ -350,6 +381,7 @@
             border-bottom: 2px solid #F0B90B;
         }
 
+        /* Price Ladder */
         .price-ladder {
             padding: 12px;
             flex: 1;
@@ -363,6 +395,13 @@
             color: #8A8F99;
             font-size: 9px;
             margin-bottom: 6px;
+            padding: 0 10px;
+        }
+
+        .ladder-rows {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 2px;
         }
 
         .ladder-row {
@@ -372,6 +411,7 @@
             padding: 5px 8px;
             border-radius: 4px;
             font-size: 11px;
+            font-family: monospace;
         }
 
         .ladder-row.ask {
@@ -382,6 +422,15 @@
             background: rgba(2, 192, 118, 0.1);
         }
 
+        .ladder-price {
+            font-weight: 600;
+        }
+
+        .ladder-volume {
+            color: #8A8F99;
+        }
+
+        /* Trading Controls */
         .trading-controls {
             padding: 12px;
             border-top: 1px solid #1E2329;
@@ -398,6 +447,8 @@
         .amount-input label {
             color: #8A8F99;
             font-size: 10px;
+            display: block;
+            margin-bottom: 3px;
         }
 
         .amount-input input {
@@ -437,7 +488,76 @@
             font-size: 12px;
         }
 
-        /* Modal */
+        .btn-buy:hover { background: #00a35e; }
+        .btn-sell:hover { background: #d43b4f; }
+
+        /* Signals Section */
+        .signals-panel {
+            padding: 12px;
+            border-top: 1px solid #1E2329;
+        }
+
+        .signals-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .signals-title h4 {
+            color: #F0B90B;
+            font-size: 13px;
+        }
+
+        .signals-title a {
+            color: #F0B90B;
+            font-size: 10px;
+            text-decoration: none;
+        }
+
+        .signals-title a:hover {
+            text-decoration: underline;
+        }
+
+        .signal-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #1E2329;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .signal-item:hover {
+            background: #1A1F26;
+        }
+
+        .signal-pair {
+            font-weight: 500;
+        }
+
+        .signal-action.buy {
+            color: #02C076;
+        }
+
+        .signal-action.sell {
+            color: #F6465D;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1218;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2F38;
+            border-radius: 2px;
+        }
+
+        /* Deposit Modal - CRYPTO ONLY */
         .modal {
             display: none;
             position: fixed;
@@ -448,7 +568,7 @@
             background: rgba(0,0,0,0.95);
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 1000;
         }
 
         .modal.active {
@@ -461,7 +581,169 @@
             width: 90%;
             max-width: 340px;
             border: 1px solid #F0B90B;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            background: #0F1218;
+            border-bottom: 1px solid #2A2F38;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: #F0B90B;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-header i {
+            color: #8A8F99;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-header i:hover {
+            color: #F0B90B;
+        }
+
+        .modal-body {
             padding: 20px;
+        }
+
+        .crypto-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .crypto-option {
+            background: #0F1218;
+            border: 1px solid #2A2F38;
+            border-radius: 10px;
+            padding: 12px 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .crypto-option.active {
+            border-color: #F0B90B;
+            background: rgba(240, 185, 11, 0.1);
+        }
+
+        .crypto-option i {
+            font-size: 24px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .crypto-option span {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .address-container {
+            background: #0F1218;
+            border: 1px solid #2A2F38;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .address-label {
+            color: #8A8F99;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .address-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1A1F26;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .address-text {
+            font-family: monospace;
+            font-size: 11px;
+            color: #F0B90B;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: #F0B90B;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .qr-placeholder {
+            text-align: center;
+            padding: 15px;
+            background: #1A1F26;
+            border-radius: 8px;
+        }
+
+        .qr-placeholder i {
+            font-size: 60px;
+            color: #F0B90B;
+            opacity: 0.5;
+        }
+
+        .minimum-note {
+            background: rgba(240, 185, 11, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+        }
+
+        .minimum-note p {
+            color: #F0B90B;
+            font-size: 11px;
+        }
+
+        .minimum-note small {
+            color: #8A8F99;
+            font-size: 10px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #2A2F38;
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-footer button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-confirm {
+            background: #F0B90B;
+            color: #0D1117;
+        }
+
+        .btn-cancel {
+            background: #2A2F38;
+            color: white;
         }
 
         .toast {
@@ -474,8 +756,8 @@
             padding: 10px 20px;
             border-radius: 30px;
             font-size: 13px;
+            z-index: 2000;
             display: none;
-            z-index: 3000;
         }
 
         .toast.show {
@@ -483,26 +765,60 @@
         }
 
         /* Portrait Mode */
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+            
             .trading-container {
                 grid-template-columns: 1fr;
                 height: auto;
             }
+
             .assets-sidebar {
+                width: 100%;
+                height: auto;
                 max-height: 40vh;
             }
+
+            .assets-list {
+                display: flex;
+                overflow-x: auto;
+                padding: 5px;
+            }
+
+            .asset-item {
+                min-width: 90px;
+                margin-right: 5px;
+                border-radius: 6px;
+                border: 1px solid #1E2329;
+            }
+
+            .nav-links {
+                display: flex;
+                overflow-x: auto;
+                padding: 8px 12px;
+            }
+
+            .nav-link {
+                min-width: 70px;
+                padding: 6px 10px;
+                margin-right: 5px;
+            }
+
             .chart-container {
                 height: 300px;
+            }
+
+            .timeframes {
+                top: 15px;
+                right: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Compliance Banner -->
-    <div class="compliance-banner" id="complianceBanner">
-        <i class="fas fa-info-circle"></i> Please ensure you comply with your local financial regulations.
-    </div>
-
     <div class="trading-container">
         <!-- LEFT SIDEBAR -->
         <div class="assets-sidebar">
@@ -526,26 +842,20 @@
                     <span class="asset-name">GBP/USD</span>
                     <span class="asset-price down">1.2654</span>
                 </div>
+                <div class="asset-item" onclick="selectAsset('USD/JPY', 'FX:USDJPY')">
+                    <span class="asset-name">USD/JPY</span>
+                    <span class="asset-price up">148.50</span>
+                </div>
+                <div class="asset-item" onclick="selectAsset('BTC/USD', 'BITSTAMP:BTCUSD')">
+                    <span class="asset-name">BTC/USD</span>
+                    <span class="asset-price up">43.1K</span>
+                </div>
             </div>
 
-            <!-- BALANCE SECTION with CURRENCY SELECTOR -->
+            <!-- BALANCE SECTION -->
             <div class="balance-section">
                 <div class="balance-card">
-                    <div class="balance-header">
-                        <span class="balance-label">Total Balance</span>
-                        <select class="currency-selector" id="currencySelector" onchange="convertCurrency()">
-                            <option value="USD">USD ($)</option>
-                            <option value="EUR">EUR (€)</option>
-                            <option value="GBP">GBP (£)</option>
-                            <option value="JPY">JPY (¥)</option>
-                            <option value="CNY">CNY (¥)</option>
-                            <option value="INR">INR (₹)</option>
-                            <option value="BRL">BRL (R$)</option>
-                            <option value="AUD">AUD (A$)</option>
-                            <option value="CAD">CAD (C$)</option>
-                            <option value="CHF">CHF (Fr)</option>
-                        </select>
-                    </div>
+                    <div class="balance-label">Total Balance</div>
                     <div>
                         <span class="balance-amount" id="totalBalance">$0.00</span>
                     </div>
@@ -563,16 +873,21 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="action-btn deposit" onclick="showDepositModal()">Deposit</button>
+                    <button class="action-btn deposit" onclick="showDepositModal()">
+                        <i class="fas fa-coins"></i> Deposit
+                    </button>
                 </div>
             </div>
 
-            <!-- NAV LINKS with translations -->
+            <!-- NAVIGATION LINKS - ALL PAGES RESTORED -->
             <div class="nav-links">
-                <a href="dashboard.html" class="nav-link" data-translate="home"><i class="fas fa-home"></i> Home</a>
-                <a href="profile.html" class="nav-link" data-translate="profile"><i class="fas fa-user"></i> Profile</a>
-                <a href="signals.html" class="nav-link" data-translate="signals"><i class="fas fa-bell"></i> Signals</a>
-                <a href="#" onclick="logout()" class="nav-link" data-translate="logout"><i class="fas fa-sign-out"></i> Logout</a>
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="signals.html" class="nav-link"><i class="fas fa-bell"></i> Signals</a>
+                <a href="trades.html" class="nav-link"><i class="fas fa-history"></i> Trades</a>
+                <a href="subscription.html" class="nav-link"><i class="fas fa-crown"></i> VIP</a>
+                <a href="admin.html" class="nav-link"><i class="fas fa-shield"></i> Admin</a>
+                <a href="#" onclick="logout()" class="nav-link"><i class="fas fa-sign-out"></i> Exit</a>
             </div>
         </div>
 
@@ -585,44 +900,36 @@
                     <span class="change up" id="priceChange">+0.12%</span>
                 </div>
                 <div class="user-menu">
-                    <select class="language-selector" id="languageSelector" onchange="changeLanguage()">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                        <option value="de">Deutsch</option>
-                        <option value="zh">中文</option>
-                        <option value="ja">日本語</option>
-                        <option value="ar">العربية</option>
-                        <option value="pt">Português</option>
-                        <option value="ru">Русский</option>
-                        <option value="hi">हिन्दी</option>
-                    </select>
-                    <span class="user-badge" id="subscriptionBadge">FREE</span>
+                    <span class="user-badge" id="subscriptionBadge" onclick="window.location.href='subscription.html'">FREE</span>
                     <div class="avatar" id="userAvatar" onclick="window.location.href='profile.html'">U</div>
                 </div>
             </div>
 
-            <!-- Chart -->
             <div class="chart-container">
                 <div class="timeframes">
-                    <button class="timeframe-btn active">1M</button>
-                    <button class="timeframe-btn">5M</button>
-                    <button class="timeframe-btn">15M</button>
-                    <button class="timeframe-btn">1H</button>
+                    <button class="timeframe-btn active" onclick="changeChartInterval('1', this)">1m</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('5', this)">5m</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('15', this)">15m</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('30', this)">30m</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('60', this)">1h</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('240', this)">4h</button>
+                    <button class="timeframe-btn" onclick="changeChartInterval('D', this)">1d</button>
                 </div>
+                
                 <div class="tradingview-widget-container">
                     <div id="tradingview_chart" style="height:100%; width:100%;"></div>
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT PANEL -->
+        <!-- RIGHT TRADING PANEL -->
         <div class="trading-panel">
             <div class="panel-tabs">
                 <div class="panel-tab active" onclick="switchPanel('trade', this)">Trade</div>
                 <div class="panel-tab" onclick="switchPanel('signals', this)">Signals</div>
             </div>
 
+            <!-- Trade Panel -->
             <div id="tradePanel" style="display: flex; flex: 1; flex-direction: column;">
                 <div class="price-ladder">
                     <div class="ladder-header">
@@ -631,15 +938,42 @@
                         <span>Total</span>
                     </div>
                     <div class="ladder-rows">
-                        <div class="ladder-row ask"><span>95.29</span><span>12.5</span><span>12.5</span></div>
-                        <div class="ladder-row ask"><span>95.27</span><span>8.3</span><span>20.8</span></div>
-                        <div class="ladder-row bid"><span>95.23</span><span>10.1</span><span>10.1</span></div>
+                        <div class="ladder-row ask">
+                            <span class="ladder-price">95.29</span>
+                            <span class="ladder-volume">12.5</span>
+                            <span class="ladder-total">12.5</span>
+                        </div>
+                        <div class="ladder-row ask">
+                            <span class="ladder-price">95.27</span>
+                            <span class="ladder-volume">8.3</span>
+                            <span class="ladder-total">20.8</span>
+                        </div>
+                        <div class="ladder-row ask">
+                            <span class="ladder-price">95.25</span>
+                            <span class="ladder-volume">15.2</span>
+                            <span class="ladder-total">36.0</span>
+                        </div>
+                        <div class="ladder-row bid">
+                            <span class="ladder-price">95.23</span>
+                            <span class="ladder-volume">10.1</span>
+                            <span class="ladder-total">10.1</span>
+                        </div>
+                        <div class="ladder-row bid">
+                            <span class="ladder-price">95.21</span>
+                            <span class="ladder-volume">14.7</span>
+                            <span class="ladder-total">24.8</span>
+                        </div>
+                        <div class="ladder-row bid">
+                            <span class="ladder-price">95.19</span>
+                            <span class="ladder-volume">9.3</span>
+                            <span class="ladder-total">34.1</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="trading-controls">
                     <div class="amount-input">
-                        <label>Amount</label>
+                        <label>Amount ($)</label>
                         <input type="number" value="100" id="tradeAmount">
                     </div>
                     <div class="trade-buttons">
@@ -649,32 +983,133 @@
                 </div>
             </div>
 
-            <div id="signalsPanel" style="display: none; padding: 12px;">
-                <div id="liveSignals">No signals</div>
+            <!-- Signals Panel -->
+            <div id="signalsPanel" style="display: none; flex: 1; overflow-y: auto; padding: 12px;">
+                <div class="signals-title">
+                    <h4><i class="fas fa-bell"></i> Live Signals</h4>
+                    <a href="signals.html">View all</a>
+                </div>
+                <div id="liveSignals"></div>
             </div>
         </div>
     </div>
 
-    <!-- Deposit Modal -->
+    <!-- DEPOSIT MODAL - WITH ALL CRYPTO OPTIONS RESTORED -->
     <div class="modal" id="depositModal">
         <div class="modal-content">
-            <h3 style="color:#F0B90B; margin-bottom:15px;">Deposit Crypto</h3>
-            <p style="color:#8A8F99; margin-bottom:10px;">Send to this address:</p>
-            <div style="background:#0F1218; padding:12px; border-radius:8px; margin-bottom:15px; word-break:break-all;">
-                <span style="color:#F0B90B;">1LyKztrZUask8bXaY2aj892eZkLMSsQahG</span>
+            <div class="modal-header">
+                <h3><i class="fas fa-coins"></i> Deposit Crypto</h3>
+                <i class="fas fa-times" onclick="closeModal()"></i>
             </div>
-            <button class="btn-buy" onclick="copyAddress()" style="width:100%; margin-bottom:10px;">Copy Address</button>
-            <button class="btn-sell" onclick="closeModal()" style="width:100%;">Close</button>
+            
+            <div class="modal-body">
+                <!-- Crypto Options -->
+                <div class="crypto-options">
+                    <div class="crypto-option active" onclick="selectCrypto('btc')" id="crypto-btc">
+                        <i class="fab fa-bitcoin" style="color: #F7931A;"></i>
+                        <span>Bitcoin</span>
+                    </div>
+                    <div class="crypto-option" onclick="selectCrypto('usdt')" id="crypto-usdt">
+                        <i class="fas fa-circle" style="color: #26A17B;"></i>
+                        <span>USDT</span>
+                    </div>
+                    <div class="crypto-option" onclick="selectCrypto('usdc')" id="crypto-usdc">
+                        <i class="fas fa-circle" style="color: #2775CA;"></i>
+                        <span>USDC</span>
+                    </div>
+                    <div class="crypto-option" onclick="selectCrypto('sol')" id="crypto-sol">
+                        <i class="fas fa-circle" style="color: #14F195;"></i>
+                        <span>Solana</span>
+                    </div>
+                </div>
+
+                <!-- Bitcoin Address -->
+                <div id="btc-address" class="address-container">
+                    <div class="address-label">
+                        <i class="fab fa-bitcoin" style="color: #F7931A;"></i> Bitcoin Address
+                    </div>
+                    <div class="address-box">
+                        <span class="address-text" id="btcAddress">1LyKztrZUask8bXaY2aj892eZkLMSsQahG</span>
+                        <button class="copy-btn" onclick="copyAddress('btc')">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+
+                <!-- USDT Address -->
+                <div id="usdt-address" class="address-container" style="display: none;">
+                    <div class="address-label">
+                        <i class="fas fa-circle" style="color: #26A17B;"></i> USDT (ERC20) Address
+                    </div>
+                    <div class="address-box">
+                        <span class="address-text" id="usdtAddress">0x38394b2a4894b4600df5c2958f5b198c16c5132b</span>
+                        <button class="copy-btn" onclick="copyAddress('usdt')">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+
+                <!-- USDC Address -->
+                <div id="usdc-address" class="address-container" style="display: none;">
+                    <div class="address-label">
+                        <i class="fas fa-circle" style="color: #2775CA;"></i> USDC (ERC20) Address
+                    </div>
+                    <div class="address-box">
+                        <span class="address-text" id="usdcAddress">0x38394b2a4894b4600df5c2958f5b198c16c5132b</span>
+                        <button class="copy-btn" onclick="copyAddress('usdc')">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+
+                <!-- Solana Address -->
+                <div id="sol-address" class="address-container" style="display: none;">
+                    <div class="address-label">
+                        <i class="fas fa-circle" style="color: #14F195;"></i> Solana Address
+                    </div>
+                    <div class="address-box">
+                        <span class="address-text" id="solAddress">2JLy9HXRceZTSGuyYYW6BCPtyEt1UjiK8J73dJ3KkX6s</span>
+                        <button class="copy-btn" onclick="copyAddress('sol')">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+
+                <!-- Minimum Note -->
+                <div class="minimum-note">
+                    <p><i class="fas fa-info-circle"></i> Minimum Deposit</p>
+                    <small>BTC: 0.001 • USDT: 20 • USDC: 20 • SOL: 0.5</small>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-confirm" onclick="confirmDeposit()">I've Sent</button>
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
         </div>
     </div>
 
-    <!-- Toast -->
-    <div class="toast" id="toast">Address copied!</div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Address copied to clipboard!</div>
 
-    <!-- Firebase & TradingView -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- TradingView -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
     <script>
@@ -688,150 +1123,39 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Exchange rates (you'd update these from an API)
-        const exchangeRates = {
-            USD: 1,
-            EUR: 0.92,
-            GBP: 0.79,
-            JPY: 150.24,
-            CNY: 7.23,
-            INR: 83.12,
-            BRL: 5.05,
-            AUD: 1.52,
-            CAD: 1.35,
-            CHF: 0.88
-        };
+        // TradingView Chart
+        let chartWidget = null;
 
-        let userData = null;
-        let baseBalance = 0;
-        let baseAvailable = 0;
-
-        // Translations
-        const translations = {
-            en: { home: "Home", profile: "Profile", signals: "Signals", logout: "Logout" },
-            es: { home: "Inicio", profile: "Perfil", signals: "Señales", logout: "Salir" },
-            fr: { home: "Accueil", profile: "Profil", signals: "Signaux", logout: "Déconnexion" },
-            de: { home: "Start", profile: "Profil", signals: "Signale", logout: "Abmelden" },
-            zh: { home: "主页", profile: "个人资料", signals: "信号", logout: "退出" },
-            ja: { home: "ホーム", profile: "プロフィール", signals: "シグナル", logout: "ログアウト" },
-            ar: { home: "الرئيسية", profile: "الملف", signals: "إشارات", logout: "تسجيل خروج" },
-            pt: { home: "Início", profile: "Perfil", signals: "Sinais", logout: "Sair" },
-            ru: { home: "Главная", profile: "Профиль", signals: "Сигналы", logout: "Выйти" },
-            hi: { home: "होम", profile: "प्रोफाइल", signals: "सिग्नल", logout: "लॉग आउट" }
-        };
-
-        // Restricted countries
-        const restrictedCountries = ['US', 'CA', 'KR', 'RU', 'IR', 'IQ', 'SY', 'MM', 'BY', 'KP', 'EG', 'PK'];
-
-        // Load user data
-        auth.onAuthStateChanged(async (user) => {
-            if (!user) {
-                window.location.href = 'index.html';
-                return;
-            }
-
-            const doc = await db.collection('users').doc(user.uid).get();
-            if (doc.exists) {
-                userData = doc.data();
-                
-                // Set avatar
-                document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
-                
-                // Load balance
-                baseBalance = userData.balance || 0;
-                baseAvailable = userData.available || 0;
-                updateBalanceDisplay();
-                
-                // Set preferred language
-                if (userData.preferredLanguage) {
-                    document.getElementById('languageSelector').value = userData.preferredLanguage;
-                    changeLanguage();
-                }
-                
-                // Set preferred currency
-                if (userData.preferredCurrency) {
-                    document.getElementById('currencySelector').value = userData.preferredCurrency;
-                    convertCurrency();
-                }
-                
-                // Check if restricted country
-                if (restrictedCountries.includes(userData.countryCode)) {
-                    document.getElementById('complianceBanner').classList.add('show');
-                }
-                
-                // Update subscription badge
-                if (userData.subscription === 'active') {
-                    document.getElementById('subscriptionBadge').textContent = 'VIP';
-                    document.getElementById('subscriptionBadge').style.background = 'rgba(2,192,118,0.1)';
-                    document.getElementById('subscriptionBadge').style.color = '#02C076';
-                }
-            }
-            
-            loadSignals();
-            initChart();
-        });
-
-        // Update balance with currency conversion
-        function updateBalanceDisplay() {
-            const currency = document.getElementById('currencySelector').value;
-            const rate = exchangeRates[currency] || 1;
-            
-            let symbol = '$';
-            if (currency === 'EUR') symbol = '€';
-            if (currency === 'GBP') symbol = '£';
-            if (currency === 'JPY') symbol = '¥';
-            if (currency === 'CNY') symbol = '¥';
-            if (currency === 'INR') symbol = '₹';
-            if (currency === 'BRL') symbol = 'R$';
-            if (currency === 'AUD') symbol = 'A$';
-            if (currency === 'CAD') symbol = 'C$';
-            if (currency === 'CHF') symbol = 'Fr';
-            
-            document.getElementById('totalBalance').textContent = symbol + (baseBalance * rate).toFixed(2);
-            document.getElementById('availableBalance').textContent = symbol + (baseAvailable * rate).toFixed(2);
-        }
-
-        function convertCurrency() {
-            updateBalanceDisplay();
-        }
-
-        // Language change
-        function changeLanguage() {
-            const lang = document.getElementById('languageSelector').value;
-            document.querySelectorAll('[data-translate]').forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    el.childNodes[1].textContent = translations[lang][key];
-                }
-            });
-            
-            // Save to Firebase
-            if (auth.currentUser) {
-                db.collection('users').doc(auth.currentUser.uid).update({
-                    preferredLanguage: lang
-                });
-            }
-        }
-
-        // Chart functions
         function initChart(symbol = 'FX:AUDJPY', interval = '1') {
             if (document.getElementById('tradingview_chart')) {
-                new TradingView.widget({
+                chartWidget = new TradingView.widget({
                     "width": "100%",
                     "height": "100%",
                     "symbol": symbol,
                     "interval": interval,
                     "theme": "dark",
                     "style": "1",
-                    "locale": document.getElementById('languageSelector').value,
+                    "locale": "en",
                     "container_id": "tradingview_chart"
                 });
             }
         }
 
-        function selectAsset(name, symbol) {
-            document.getElementById('currentAsset').textContent = name;
-            initChart(symbol);
+        function changeChartInterval(interval, btn) {
+            document.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (chartWidget) {
+                chartWidget.setInterval(interval);
+            }
+        }
+
+        function selectAsset(assetName, symbol) {
+            document.getElementById('currentAsset').textContent = assetName;
+            document.querySelectorAll('.asset-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            if (chartWidget) {
+                chartWidget.setSymbol(symbol);
+            }
         }
 
         function switchPanel(panel, tab) {
@@ -841,29 +1165,12 @@
             document.getElementById('signalsPanel').style.display = panel === 'signals' ? 'block' : 'none';
         }
 
-        // Trade execution
         function executeTrade(type) {
-            const amount = parseFloat(document.getElementById('tradeAmount').value);
-            if (amount > baseAvailable) {
-                alert('Insufficient balance!');
-                return;
-            }
-            
-            alert(type + ' order placed for ' + document.getElementById('currencySelector').value + ' ' + amount);
-            
-            // Update balance
-            baseAvailable -= amount;
-            baseBalance -= amount;
-            updateBalanceDisplay();
-            
-            // Save to Firebase
-            db.collection('users').doc(auth.currentUser.uid).update({
-                available: baseAvailable,
-                balance: baseBalance
-            });
+            const amount = document.getElementById('tradeAmount').value;
+            alert(`${type} order for $${amount} placed!`);
         }
 
-        // Deposit
+        // Modal Functions
         function showDepositModal() {
             document.getElementById('depositModal').classList.add('active');
         }
@@ -872,34 +1179,79 @@
             document.getElementById('depositModal').classList.remove('active');
         }
 
-        function copyAddress() {
-            navigator.clipboard.writeText('1LyKztrZUask8bXaY2aj892eZkLMSsQahG').then(() => {
+        // Crypto selection
+        function selectCrypto(crypto) {
+            document.querySelectorAll('.crypto-option').forEach(opt => opt.classList.remove('active'));
+            document.getElementById(`crypto-${crypto}`).classList.add('active');
+            
+            document.getElementById('btc-address').style.display = 'none';
+            document.getElementById('usdt-address').style.display = 'none';
+            document.getElementById('usdc-address').style.display = 'none';
+            document.getElementById('sol-address').style.display = 'none';
+            
+            document.getElementById(`${crypto}-address`).style.display = 'block';
+        }
+
+        // Copy address
+        function copyAddress(crypto) {
+            const addresses = {
+                btc: '1LyKztrZUask8bXaY2aj892eZkLMSsQahG',
+                usdt: '0x38394b2a4894b4600df5c2958f5b198c16c5132b',
+                usdc: '0x38394b2a4894b4600df5c2958f5b198c16c5132b',
+                sol: '2JLy9HXRceZTSGuyYYW6BCPtyEt1UjiK8J73dJ3KkX6s'
+            };
+            
+            navigator.clipboard.writeText(addresses[crypto]).then(() => {
                 document.getElementById('toast').classList.add('show');
                 setTimeout(() => document.getElementById('toast').classList.remove('show'), 2000);
             });
         }
 
+        function confirmDeposit() {
+            alert('Deposit confirmed! Your balance will update after network confirmation.');
+            closeModal();
+        }
+
         // Load signals
         function loadSignals() {
             db.collection('signals').orderBy('timestamp', 'desc').limit(3).get()
-                .then(snapshot => {
+                .then((snapshot) => {
                     if (snapshot.empty) {
-                        document.getElementById('liveSignals').innerHTML = '<p style="color:#8A8F99;">No signals</p>';
+                        document.getElementById('liveSignals').innerHTML = '<p style="color: #8A8F99;">No signals</p>';
                         return;
                     }
                     
                     let html = '';
                     snapshot.forEach(doc => {
                         const s = doc.data();
-                        html += `<div class="signal-item"><span>${s.pair}</span><span class="signal-action buy">BUY</span><span>${s.entry}</span></div>`;
+                        html += `
+                            <div class="signal-item" onclick="window.location.href='signals.html'">
+                                <span class="signal-pair">${s.pair || 'EUR/USD'}</span>
+                                <span class="signal-action buy">BUY</span>
+                                <span>${s.entry || '1.0925'}</span>
+                            </div>
+                        `;
                     });
                     document.getElementById('liveSignals').innerHTML = html;
                 });
         }
 
-        // Logout
+        // Auth
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
+            loadSignals();
+            setTimeout(() => initChart(), 500);
+        });
+
         function logout() {
-            auth.signOut().then(() => window.location.href = 'index.html');
+            auth.signOut().then(() => {
+                window.location.href = 'index.html';
+            });
         }
     </script>
 </body>
