@@ -3,401 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin • FX Pro</title>
+    <title>FX Pro • Sign Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --binance-bg: #0B0E11;
+            --binance-card: #1E2329;
+            --binance-yellow: #F0B90B;
+            --binance-text: #EAECEF;
+            --binance-text-secondary: #848E9C;
+            --binance-border: #2B3139;
+            --binance-green: #02C076;
+            --binance-red: #F6465D;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0A0C0F;
-            color: white;
-        }
-        .admin-container {
-            display: grid;
-            grid-template-columns: 260px 1fr;
+            background: var(--binance-bg);
+            color: var(--binance-text);
             min-height: 100vh;
-        }
-        .sidebar {
-            background: #0F1217;
-            border-right: 1px solid #1E2229;
-            padding: 24px 0;
-            position: fixed;
-            width: 260px;
-            height: 100vh;
-        }
-        .logo {
-            padding: 0 24px;
-            margin-bottom: 32px;
-            font-size: 22px;
-            font-weight: 600;
-            color: #F0B90B;
-        }
-        .nav-item {
-            padding: 12px 24px;
-            color: #8A8F99;
             display: flex;
             align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-        .nav-item:hover {
-            background: #1A1E26;
-            color: white;
-        }
-        .nav-item.active {
-            background: #1A1E26;
-            color: #F0B90B;
-        }
-        .main-content {
-            margin-left: 260px;
-            padding: 30px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: #F0B90B;
-        }
-        .admin-badge {
-            background: #F0B90B;
-            color: #0A0C0F;
-            padding: 8px 16px;
-            border-radius: 20px;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .stat-card {
-            background: #14171C;
-            border: 1px solid #1E2229;
-            border-radius: 12px;
+            justify-content: center;
             padding: 20px;
         }
-        .stat-card h3 {
-            color: #8A8F99;
-            font-size: 13px;
-        }
-        .stat-number {
-            font-size: 28px;
-            font-weight: 600;
-            color: #F0B90B;
-            margin-top: 10px;
-        }
-        .section {
-            background: #14171C;
-            border: 1px solid #1E2229;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        .section h2 {
-            color: #F0B90B;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #8A8F99;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+
+        .container {
+            max-width: 1200px;
             width: 100%;
-            padding: 12px;
-            background: #0F1217;
-            border: 1px solid #1E2229;
-            border-radius: 8px;
-            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: var(--binance-card);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--binance-border);
         }
-        .form-group textarea {
-            min-height: 120px;
+
+        .brand-side {
+            padding: 40px;
         }
-        .btn {
-            background: #F0B90B;
-            color: #0A0C0F;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--binance-yellow);
+            margin-bottom: 40px;
+        }
+
+        .logo i {
             margin-right: 10px;
         }
-        .btn-danger {
-            background: #F6465D;
-            color: white;
+
+        .features {
+            list-style: none;
         }
-        .user-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            padding: 15px;
-            border-bottom: 1px solid #1E2229;
+
+        .features li {
+            margin: 30px 0;
+            display: flex;
             align-items: center;
-        }
-        .user-row.header {
-            background: #0F1217;
-            color: #F0B90B;
-            font-weight: 600;
-        }
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #02C076;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: none;
-            z-index: 1000;
-        }
-        .toast.show {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <div class="admin-container">
-        <aside class="sidebar">
-            <div class="logo">FX PRO ADMIN</div>
-            <div class="nav-item active" onclick="showSection('dashboard')">
-                <i class="fas fa-chart-line"></i> Dashboard
-            </div>
-            <div class="nav-item" onclick="showSection('users')">
-                <i class="fas fa-users"></i> Users
-            </div>
-            <div class="nav-item" onclick="showSection('signals')">
-                <i class="fas fa-bell"></i> Signals
-            </div>
-            <div class="nav-item" onclick="window.location.href='dashboard.html'">
-                <i class="fas fa-arrow-left"></i> Back
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <div class="header">
-                <h1>Admin Dashboard</h1>
-                <span class="admin-badge" id="adminEmail">Loading...</span>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total Users</h3>
-                    <div class="stat-number" id="totalUsers">0</div>
-                </div>
-                <div class="stat-card">
-                    <h3>VIP Users</h3>
-                    <div class="stat-number" id="vipUsers">0</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Signals</h3>
-                    <div class="stat-number" id="totalSignals">0</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Today's Signups</h3>
-                    <div class="stat-number" id="todayUsers">0</div>
-                </div>
-            </div>
-
-            <div id="dashboardSection" class="section">
-                <h2><i class="fas fa-users"></i> All Users</h2>
-                <div style="margin-bottom: 15px;">
-                    <input type="text" id="searchInput" placeholder="Search users..." style="width: 100%; padding: 10px; background: #0F1217; border: 1px solid #1E2229; color: white; border-radius: 6px;">
-                </div>
-                <div id="usersList"></div>
-            </div>
-
-            <div id="signalsSection" class="section" style="display: none;">
-                <h2><i class="fas fa-bullhorn"></i> Post Signal</h2>
-                <div class="form-group">
-                    <label>Pair</label>
-                    <input type="text" id="pair" placeholder="EUR/USD">
-                </div>
-                <div class="form-group">
-                    <label>Entry</label>
-                    <input type="number" id="entry" step="0.00001">
-                </div>
-                <div class="form-group">
-                    <label>TP</label>
-                    <input type="number" id="tp" step="0.00001">
-                </div>
-                <div class="form-group">
-                    <label>SL</label>
-                    <input type="number" id="sl" step="0.00001">
-                </div>
-                <button class="btn" onclick="postSignal()">Post</button>
-                <div id="recentSignals" style="margin-top: 30px;"></div>
-            </div>
-        </main>
-    </div>
-
-    <div class="toast" id="toast">Done!</div>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyA-90tjTbXWkMXRBuCa7ltVz0HzaSiDN7o",
-            authDomain: "forex-saas.firebaseapp.com",
-            projectId: "forex-saas"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // ONLY YOUR EMAIL
-        const ADMIN_EMAIL = "chibudom806@gmail.com";
-
-        auth.onAuthStateChanged(async (user) => {
-            if (!user) {
-                window.location.href = 'index.html';
-                return;
-            }
-
-            if (user.email !== ADMIN_EMAIL) {
-                alert('❌ Admin access only!');
-                window.location.href = 'dashboard.html';
-                return;
-            }
-
-            document.getElementById('adminEmail').textContent = user.email;
-            loadData();
-        });
-
-        async function loadData() {
-            await loadUsers();
-            await loadSignals();
+            gap: 15px;
         }
 
-        async function loadUsers() {
-            const snapshot = await db.collection('users').get();
-            
-            let vipCount = 0;
-            let todayCount = 0;
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            let users = [];
-
-            snapshot.forEach(doc => {
-                const user = doc.data();
-                user.id = doc.id;
-                users.push(user);
-                if (user.subscription === 'active') vipCount++;
-                if (user.createdAt) {
-                    const created = new Date(user.createdAt);
-                    if (created > today) todayCount++;
-                }
-            });
-
-            document.getElementById('totalUsers').textContent = snapshot.size;
-            document.getElementById('vipUsers').textContent = vipCount;
-            document.getElementById('todayUsers').textContent = todayCount;
-
-            displayUsers(users);
-        }
-
-        function displayUsers(users) {
-            let html = '<div class="user-row header"><div>Email</div><div>Balance</div><div>Trades</div><div>Win Rate</div><div>Status</div></div>';
-            
-            users.forEach(user => {
-                html += `
-                    <div class="user-row">
-                        <div>${user.email}</div>
-                        <div>$${user.balance || 0}</div>
-                        <div>${user.totalTrades || 0}</div>
-                        <div>${user.winRate || 0}%</div>
-                        <div>${user.subscription === 'active' ? 'VIP' : 'Free'}</div>
-                    </div>
-                `;
-            });
-
-            document.getElementById('usersList').innerHTML = html;
-
-            document.getElementById('searchInput').addEventListener('keyup', function() {
-                const search = this.value.toLowerCase();
-                const filtered = users.filter(u => u.email.toLowerCase().includes(search));
-                displayUsers(filtered);
-            });
-        }
-
-        async function loadSignals() {
-            const snapshot = await db.collection('signals').orderBy('timestamp', 'desc').limit(10).get();
-            document.getElementById('totalSignals').textContent = snapshot.size;
-
-            let html = '';
-            snapshot.forEach(doc => {
-                const s = doc.data();
-                html += `
-                    <div style="padding: 10px; border-bottom: 1px solid #1E2229;">
-                        <strong style="color: #F0B90B;">${s.pair}</strong> - Entry: ${s.entry} TP: ${s.tp} SL: ${s.sl}
-                        <button style="float:right; background:#F6465D; color:white; border:none; padding:5px 10px; border-radius:4px;" onclick="deleteSignal('${doc.id}')">Delete</button>
-                    </div>
-                `;
-            });
-            document.getElementById('recentSignals').innerHTML = html || '<p>No signals</p>';
-        }
-
-        async function postSignal() {
-            const pair = document.getElementById('pair').value;
-            const entry = document.getElementById('entry').value;
-            const tp = document.getElementById('tp').value;
-            const sl = document.getElementById('sl').value;
-
-            if (!pair || !entry || !tp || !sl) {
-                alert('Fill all fields');
-                return;
-            }
-
-            await db.collection('signals').add({
-                pair, entry: parseFloat(entry), tp: parseFloat(tp), sl: parseFloat(sl),
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            showToast('Signal posted!');
-            document.getElementById('pair').value = '';
-            document.getElementById('entry').value = '';
-            document.getElementById('tp').value = '';
-            document.getElementById('sl').value = '';
-            loadSignals();
-        }
-
-        async function deleteSignal(id) {
-            if (confirm('Delete?')) {
-                await db.collection('signals').doc(id).delete();
-                loadSignals();
-                showToast('Deleted');
-            }
-        }
-
-        function showSection(section) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            document.getElementById('dashboardSection').style.display = section === 'dashboard' ? 'block' : 'none';
-            document.getElementById('signalsSection').style.display = section === 'signals' ? 'block' : 'none';
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-    </script>
-</body>
-</html>
+        .features li i {
+            width: 40px;
+            height: 40px;
+            background: rgba(240, 185, 11, 0.1);
+            border-radius: 50
