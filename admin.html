@@ -24,7 +24,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
             background: #0F1217;
             border-right: 1px solid #1E2229;
@@ -63,17 +62,11 @@
             border-left-color: #F0B90B;
         }
 
-        .nav-item i {
-            width: 20px;
-        }
-
-        /* Main Content */
         .main-content {
             margin-left: 260px;
             padding: 30px;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -95,7 +88,6 @@
             font-weight: 600;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -122,8 +114,7 @@
             color: #F0B90B;
         }
 
-        /* Tabs */
-        .admin-tabs {
+        .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
@@ -131,30 +122,28 @@
             padding-bottom: 10px;
         }
 
-        .admin-tab {
+        .tab {
             padding: 10px 20px;
             cursor: pointer;
             color: #8A8F99;
             border-radius: 8px;
         }
 
-        .admin-tab.active {
+        .tab.active {
             background: #F0B90B;
             color: #0A0C0F;
             font-weight: 600;
         }
 
-        /* Panels */
-        .admin-panel {
+        .panel {
             display: none;
         }
 
-        .admin-panel.active {
+        .panel.active {
             display: block;
         }
 
-        /* Message Panel */
-        .message-card {
+        .card {
             background: #14171C;
             border: 1px solid #1E2229;
             border-radius: 16px;
@@ -162,7 +151,7 @@
             margin-bottom: 30px;
         }
 
-        .message-card h2 {
+        .card h2 {
             color: #F0B90B;
             margin-bottom: 20px;
             display: flex;
@@ -206,17 +195,31 @@
             margin-right: 10px;
         }
 
-        .btn-secondary {
-            background: #1E2229;
-            color: white;
-        }
-
         .btn-danger {
             background: #F6465D;
             color: white;
         }
 
-        /* Users Table */
+        .btn-success {
+            background: #02C076;
+            color: white;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            background: #0F1217;
+            border: 1px solid #1E2229;
+            border-radius: 8px;
+            color: white;
+        }
+
         .users-table {
             background: #14171C;
             border: 1px solid #1E2229;
@@ -224,61 +227,102 @@
             overflow: hidden;
         }
 
-        .user-row {
+        .table-header {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr 1.5fr 2fr;
             padding: 15px 20px;
-            border-bottom: 1px solid #1E2229;
-            align-items: center;
-        }
-
-        .user-row.header {
             background: #0F1217;
             color: #F0B90B;
             font-weight: 600;
+            font-size: 13px;
+        }
+
+        .user-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr 1.5fr 2fr;
+            padding: 15px 20px;
+            border-bottom: 1px solid #1E2229;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .user-row:last-child {
+            border-bottom: none;
+        }
+
+        .user-row:hover {
+            background: #1A1E26;
         }
 
         .user-email {
-            color: white;
+            color: #F0B90B;
+            font-weight: 500;
         }
 
-        .user-stats {
-            display: flex;
-            gap: 5px;
+        .user-balance {
+            color: #02C076;
         }
 
-        .stat-input {
-            width: 70px;
-            padding: 5px;
-            background: #0F1217;
-            border: 1px solid #1E2229;
-            color: white;
+        .status-badge {
+            padding: 4px 8px;
             border-radius: 4px;
-            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
         }
 
-        .edit-btn {
-            background: #F0B90B;
-            color: #0A0C0F;
-            border: none;
-            padding: 5px 10px;
+        .status-active {
+            background: rgba(2, 192, 118, 0.15);
+            color: #02C076;
+        }
+
+        .status-inactive {
+            background: rgba(246, 70, 93, 0.15);
+            color: #F6465D;
+        }
+
+        .role-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(240, 185, 11, 0.15);
+            color: #F0B90B;
+        }
+
+        .action-btn {
+            background: #1E2229;
+            border: 1px solid #2A2F38;
+            color: white;
+            padding: 6px 10px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             margin-right: 5px;
         }
 
-        .save-btn {
+        .action-btn:hover {
+            background: #2A2F38;
+        }
+
+        .action-btn.edit {
+            background: #F0B90B;
+            color: #0A0C0F;
+            border: none;
+        }
+
+        .action-btn.delete {
+            background: #F6465D;
+            color: white;
+            border: none;
+        }
+
+        .action-btn.vip {
             background: #02C076;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -286,7 +330,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -302,7 +346,7 @@
             border-radius: 16px;
             padding: 30px;
             width: 90%;
-            max-width: 400px;
+            max-width: 500px;
         }
 
         .modal-content h3 {
@@ -310,30 +354,65 @@
             margin-bottom: 20px;
         }
 
-        .message-preview {
-            background: #0F1217;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
+        .edit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .message-title {
-            font-weight: 600;
-            color: #F0B90B;
+        .edit-field {
+            margin-bottom: 15px;
+        }
+
+        .edit-field label {
+            display: block;
             margin-bottom: 5px;
-        }
-
-        .message-body {
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .message-time {
             color: #8A8F99;
-            font-size: 11px;
+            font-size: 12px;
         }
 
-        /* Mobile */
+        .edit-field input,
+        .edit-field select {
+            width: 100%;
+            padding: 10px;
+            background: #0F1217;
+            border: 1px solid #1E2229;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #02C076;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 2000;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @media (max-width: 1200px) {
+            .table-header, .user-row {
+                grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr 1.5fr 1.5fr;
+                font-size: 11px;
+            }
+        }
+
         @media (max-width: 768px) {
             .admin-container {
                 grid-template-columns: 1fr;
@@ -347,56 +426,41 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .table-header {
+                display: none;
+            }
             .user-row {
                 grid-template-columns: 1fr;
                 gap: 10px;
-            }
-            .user-row.header {
-                display: none;
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">FX PRO ADMIN</div>
-            <a href="admin.html" style="text-decoration: none;">
-                <div class="nav-item active">
-                    <i class="fas fa-dashboard"></i> Dashboard
-                </div>
-            </a>
-            <a href="#" onclick="switchAdminTab('signals')" style="text-decoration: none;">
-                <div class="nav-item">
-                    <i class="fas fa-bell"></i> Post Signals
-                </div>
-            </a>
-            <a href="#" onclick="switchAdminTab('messages')" style="text-decoration: none;">
-                <div class="nav-item">
-                    <i class="fas fa-envelope"></i> Send Message
-                </div>
-            </a>
-            <a href="#" onclick="switchAdminTab('users')" style="text-decoration: none;">
-                <div class="nav-item">
-                    <i class="fas fa-users"></i> Edit Users
-                </div>
-            </a>
-            <a href="dashboard.html" style="text-decoration: none;">
-                <div class="nav-item">
-                    <i class="fas fa-arrow-left"></i> Back to Site
-                </div>
-            </a>
+            <div class="nav-item active" onclick="switchTab('dashboard')">
+                <i class="fas fa-dashboard"></i> Dashboard
+            </div>
+            <div class="nav-item" onclick="switchTab('users')">
+                <i class="fas fa-users"></i> All Users
+            </div>
+            <div class="nav-item" onclick="switchTab('signals')">
+                <i class="fas fa-bell"></i> Post Signals
+            </div>
+            <div class="nav-item" onclick="window.location.href='dashboard.html'">
+                <i class="fas fa-arrow-left"></i> Back to Site
+            </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <div class="header">
-                <h1><i class="fas fa-crown"></i> Admin Dashboard</h1>
+                <h1><i class="fas fa-crown"></i> Admin Control Panel</h1>
                 <span class="admin-badge" id="adminEmail">Loading...</span>
             </div>
 
-            <!-- Stats -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Users</h3>
@@ -407,25 +471,84 @@
                     <div class="number" id="vipUsers">0</div>
                 </div>
                 <div class="stat-card">
+                    <h3>Total Balance</h3>
+                    <div class="number" id="totalBalance">$0</div>
+                </div>
+                <div class="stat-card">
                     <h3>Total Signals</h3>
                     <div class="number" id="totalSignals">0</div>
                 </div>
-                <div class="stat-card">
-                    <h3>Active Messages</h3>
-                    <div class="number" id="activeMessages">0</div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchPanel('dashboard')">Dashboard</div>
+                <div class="tab" onclick="switchPanel('users')">User Management</div>
+                <div class="tab" onclick="switchPanel('signals')">Signal Management</div>
+            </div>
+
+            <!-- DASHBOARD PANEL -->
+            <div id="dashboardPanel" class="panel active">
+                <div class="card">
+                    <h2><i class="fas fa-chart-line"></i> Quick Overview</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div style="background: #0F1217; padding: 20px; border-radius: 12px;">
+                            <div style="color: #8A8F99; margin-bottom: 10px;">New Users Today</div>
+                            <div style="font-size: 32px; color: #F0B90B;" id="newUsersToday">0</div>
+                        </div>
+                        <div style="background: #0F1217; padding: 20px; border-radius: 12px;">
+                            <div style="color: #8A8F99; margin-bottom: 10px;">Active Subscriptions</div>
+                            <div style="font-size: 32px; color: #02C076;" id="activeSubs">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><i class="fas fa-users"></i> Recent Users</h2>
+                    <div class="users-table">
+                        <div class="table-header">
+                            <div>Email</div>
+                            <div>Balance</div>
+                            <div>Trades</div>
+                            <div>Win Rate</div>
+                            <div>Status</div>
+                            <div>Role</div>
+                            <div>Actions</div>
+                        </div>
+                        <div id="recentUsersList"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Admin Tabs -->
-            <div class="admin-tabs">
-                <div class="admin-tab active" onclick="switchAdminTab('signals')">Post Signals</div>
-                <div class="admin-tab" onclick="switchAdminTab('messages')">Send Message</div>
-                <div class="admin-tab" onclick="switchAdminTab('users')">Edit Users</div>
+            <!-- USER MANAGEMENT PANEL -->
+            <div id="usersPanel" class="panel">
+                <div class="card">
+                    <h2><i class="fas fa-search"></i> Search Users</h2>
+                    <div class="search-box">
+                        <input type="text" id="searchUser" placeholder="Search by email or name..." onkeyup="searchUsers()">
+                        <button class="btn" onclick="searchUsers()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><i class="fas fa-users-cog"></i> All Users</h2>
+                    <div class="users-table">
+                        <div class="table-header">
+                            <div>Email / Name</div>
+                            <div>Balance</div>
+                            <div>Trades</div>
+                            <div>Win Rate</div>
+                            <div>Pips</div>
+                            <div>Status</div>
+                            <div>Actions</div>
+                        </div>
+                        <div id="allUsersList"></div>
+                    </div>
+                </div>
             </div>
 
-            <!-- SIGNALS PANEL -->
-            <div id="signalsPanel" class="admin-panel active">
-                <div class="message-card">
+            <!-- SIGNAL MANAGEMENT PANEL -->
+            <div id="signalsPanel" class="panel">
+                <div class="card">
                     <h2><i class="fas fa-bullhorn"></i> Post New Signal</h2>
                     <div class="form-group">
                         <label>Currency Pair</label>
@@ -448,106 +571,80 @@
                     </button>
                 </div>
 
-                <div class="message-card">
+                <div class="card">
                     <h2><i class="fas fa-history"></i> Recent Signals</h2>
                     <div id="recentSignals"></div>
-                </div>
-            </div>
-
-            <!-- MESSAGES PANEL (SEND POPUP) -->
-            <div id="messagesPanel" class="admin-panel">
-                <div class="message-card">
-                    <h2><i class="fas fa-envelope"></i> Send Pop-up Message to Users</h2>
-                    
-                    <div class="form-group">
-                        <label>Send To</label>
-                        <select id="messageTarget">
-                            <option value="all">All Users</option>
-                            <option value="vip">VIP Users Only</option>
-                            <option value="free">Free Users Only</option>
-                            <option value="specific">Specific User</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="specificUserGroup" style="display: none;">
-                        <label>Select User</label>
-                        <select id="specificUser"></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Message Title</label>
-                        <input type="text" id="messageTitle" placeholder="e.g., Special Announcement">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Message Content</label>
-                        <textarea id="messageContent" placeholder="Type your message here..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Message Type</label>
-                        <select id="messageType">
-                            <option value="info">Information (Blue)</option>
-                            <option value="success">Success (Green)</option>
-                            <option value="warning">Warning (Yellow)</option>
-                            <option value="error">Alert (Red)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Duration (seconds)</label>
-                        <input type="number" id="messageDuration" value="5" min="2" max="30">
-                    </div>
-
-                    <button class="btn" onclick="previewMessage()">
-                        <i class="fas fa-eye"></i> Preview
-                    </button>
-                    <button class="btn" onclick="sendMessage()">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </div>
-
-                <div class="message-card">
-                    <h2><i class="fas fa-history"></i> Recent Messages</h2>
-                    <div id="recentMessages"></div>
-                </div>
-            </div>
-
-            <!-- USERS PANEL (EDIT PROFIT) -->
-            <div id="usersPanel" class="admin-panel">
-                <div class="message-card">
-                    <h2><i class="fas fa-users"></i> Edit User Profit/Loss</h2>
-                    
-                    <div class="users-table">
-                        <div class="user-row header">
-                            <div>User Email</div>
-                            <div>Total Trades</div>
-                            <div>Win Rate %</div>
-                            <div>Total Pips</div>
-                            <div>Actions</div>
-                        </div>
-                        <div id="usersList"></div>
-                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Message Preview Modal -->
-    <div class="modal" id="previewModal">
+    <!-- EDIT USER MODAL -->
+    <div class="modal" id="editUserModal">
         <div class="modal-content">
-            <h3><i class="fas fa-eye"></i> Message Preview</h3>
-            <div class="message-preview" id="previewContent">
-                <div class="message-title" id="previewTitle"></div>
-                <div class="message-body" id="previewBody"></div>
-                <div class="message-time" id="previewTime"></div>
+            <h3><i class="fas fa-user-edit"></i> Edit User Account</h3>
+            <input type="hidden" id="editUserId">
+            
+            <div class="edit-grid">
+                <div class="edit-field">
+                    <label>Balance ($)</label>
+                    <input type="number" id="editBalance" step="0.01" value="0">
+                </div>
+                <div class="edit-field">
+                    <label>Available ($)</label>
+                    <input type="number" id="editAvailable" step="0.01" value="0">
+                </div>
+                <div class="edit-field">
+                    <label>Total Trades</label>
+                    <input type="number" id="editTrades" value="0">
+                </div>
+                <div class="edit-field">
+                    <label>Win Rate %</label>
+                    <input type="number" id="editWinRate" value="0">
+                </div>
+                <div class="edit-field">
+                    <label>Total Pips</label>
+                    <input type="number" id="editPips" value="0">
+                </div>
+                <div class="edit-field">
+                    <label>Subscription</label>
+                    <select id="editSubscription">
+                        <option value="inactive">Inactive</option>
+                        <option value="active">Active (VIP)</option>
+                    </select>
+                </div>
+                <div class="edit-field">
+                    <label>Role</label>
+                    <select id="editRole">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
             </div>
-            <button class="btn" onclick="closePreview()">Close</button>
-            <button class="btn" onclick="sendMessage()">Send Now</button>
+
+            <div class="modal-buttons">
+                <button class="btn" onclick="saveUserChanges()"><i class="fas fa-save"></i> Save Changes</button>
+                <button class="btn-danger" onclick="closeEditModal()"><i class="fas fa-times"></i> Cancel</button>
+            </div>
         </div>
     </div>
 
-    <!-- Firebase -->
+    <!-- DELETE CONFIRM MODAL -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h3 style="color: #F6465D;"><i class="fas fa-exclamation-triangle"></i> Delete User?</h3>
+            <p style="color: #8A8F99; margin-bottom: 20px;">Are you sure you want to delete this user? This action cannot be undone.</p>
+            <input type="hidden" id="deleteUserId">
+            <div class="modal-buttons">
+                <button class="btn-danger" onclick="confirmDelete()">Yes, Delete</button>
+                <button class="btn" onclick="closeDeleteModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast">Action completed successfully!</div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -556,16 +653,16 @@
         const firebaseConfig = {
             apiKey: "AIzaSyA-90tjTbXWkMXRBuCa7ltVz0HzaSiDN7o",
             authDomain: "forex-saas.firebaseapp.com",
-            projectId: "forex-saas",
-            messagingSenderId: "1053073385587",
-            appId: "1:1053073385587:web:5ed7462994d8650e9c2206"
+            projectId: "forex-saas"
         };
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Check if admin
+        let currentUser = null;
+        let allUsers = [];
+
         auth.onAuthStateChanged(async (user) => {
             if (!user) {
                 window.location.href = 'index.html';
@@ -579,33 +676,224 @@
                 return;
             }
 
+            currentUser = user;
             document.getElementById('adminEmail').textContent = user.email;
-            loadStats();
-            loadSignals();
-            loadUsers();
-            loadMessages();
-            loadUserDropdown();
+            loadAllData();
         });
 
-        // Switch admin tabs
-        function switchAdminTab(tab) {
-            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-            
-            if (tab === 'signals') {
-                document.querySelectorAll('.admin-tab')[0].classList.add('active');
-                document.getElementById('signalsPanel').classList.add('active');
-            } else if (tab === 'messages') {
-                document.querySelectorAll('.admin-tab')[1].classList.add('active');
-                document.getElementById('messagesPanel').classList.add('active');
-            } else if (tab === 'users') {
-                document.querySelectorAll('.admin-tab')[2].classList.add('active');
-                document.getElementById('usersPanel').classList.add('active');
-            }
+        async function loadAllData() {
+            await loadStats();
+            await loadAllUsers();
+            await loadSignals();
         }
 
-        // Post signal
-        window.postSignal = async function() {
+        async function loadStats() {
+            const usersSnap = await db.collection('users').get();
+            const signalsSnap = await db.collection('signals').get();
+            
+            let totalBalance = 0;
+            let vipCount = 0;
+            let newToday = 0;
+            let activeSubs = 0;
+            
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            usersSnap.forEach(doc => {
+                const user = doc.data();
+                totalBalance += user.balance || 0;
+                if (user.subscription === 'active') {
+                    vipCount++;
+                    activeSubs++;
+                }
+                if (user.createdAt) {
+                    const created = new Date(user.createdAt);
+                    if (created > today) newToday++;
+                }
+            });
+
+            document.getElementById('totalUsers').textContent = usersSnap.size;
+            document.getElementById('vipUsers').textContent = vipCount;
+            document.getElementById('totalBalance').textContent = '$' + totalBalance.toFixed(2);
+            document.getElementById('totalSignals').textContent = signalsSnap.size;
+            document.getElementById('newUsersToday').textContent = newToday;
+            document.getElementById('activeSubs').textContent = activeSubs;
+        }
+
+        async function loadAllUsers() {
+            const snapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+            allUsers = [];
+            
+            let recentHtml = '';
+            let allHtml = '';
+            let count = 0;
+
+            snapshot.forEach(doc => {
+                const user = doc.data();
+                const userId = doc.id;
+                allUsers.push({id: userId, ...user});
+
+                const userRow = `
+                    <div class="user-row">
+                        <div>
+                            <div class="user-email">${user.email}</div>
+                            <div style="color: #8A8F99; font-size: 11px;">${user.fullName || ''}</div>
+                        </div>
+                        <div class="user-balance">$${(user.balance || 0).toFixed(2)}</div>
+                        <div>${user.totalTrades || 0}</div>
+                        <div>${user.winRate || 0}%</div>
+                        <div>${user.totalPips || 0}</div>
+                        <div>
+                            <span class="status-badge ${user.subscription === 'active' ? 'status-active' : 'status-inactive'}">
+                                ${user.subscription === 'active' ? 'VIP' : 'Free'}
+                            </span>
+                        </div>
+                        <div>
+                            <button class="action-btn edit" onclick="openEditModal('${userId}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete" onclick="openDeleteModal('${userId}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                allHtml += userRow;
+                if (count < 5) recentHtml += userRow;
+                count++;
+            });
+
+            document.getElementById('recentUsersList').innerHTML = recentHtml || '<div class="user-row">No users found</div>';
+            document.getElementById('allUsersList').innerHTML = allHtml || '<div class="user-row">No users found</div>';
+        }
+
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchUser').value.toLowerCase();
+            const filtered = allUsers.filter(user => 
+                user.email.toLowerCase().includes(searchTerm) || 
+                (user.fullName && user.fullName.toLowerCase().includes(searchTerm))
+            );
+
+            let html = '';
+            filtered.forEach(user => {
+                html += `
+                    <div class="user-row">
+                        <div>
+                            <div class="user-email">${user.email}</div>
+                            <div style="color: #8A8F99; font-size: 11px;">${user.fullName || ''}</div>
+                        </div>
+                        <div class="user-balance">$${(user.balance || 0).toFixed(2)}</div>
+                        <div>${user.totalTrades || 0}</div>
+                        <div>${user.winRate || 0}%</div>
+                        <div>${user.totalPips || 0}</div>
+                        <div>
+                            <span class="status-badge ${user.subscription === 'active' ? 'status-active' : 'status-inactive'}">
+                                ${user.subscription === 'active' ? 'VIP' : 'Free'}
+                            </span>
+                        </div>
+                        <div>
+                            <button class="action-btn edit" onclick="openEditModal('${user.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete" onclick="openDeleteModal('${user.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('allUsersList').innerHTML = html || '<div class="user-row">No users found</div>';
+        }
+
+        function openEditModal(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('editUserId').value = userId;
+            document.getElementById('editBalance').value = user.balance || 0;
+            document.getElementById('editAvailable').value = user.available || 0;
+            document.getElementById('editTrades').value = user.totalTrades || 0;
+            document.getElementById('editWinRate').value = user.winRate || 0;
+            document.getElementById('editPips').value = user.totalPips || 0;
+            document.getElementById('editSubscription').value = user.subscription || 'inactive';
+            document.getElementById('editRole').value = user.role || 'user';
+
+            document.getElementById('editUserModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editUserModal').classList.remove('active');
+        }
+
+        async function saveUserChanges() {
+            const userId = document.getElementById('editUserId').value;
+            const updates = {
+                balance: parseFloat(document.getElementById('editBalance').value) || 0,
+                available: parseFloat(document.getElementById('editAvailable').value) || 0,
+                totalTrades: parseInt(document.getElementById('editTrades').value) || 0,
+                winRate: parseInt(document.getElementById('editWinRate').value) || 0,
+                totalPips: parseInt(document.getElementById('editPips').value) || 0,
+                subscription: document.getElementById('editSubscription').value,
+                role: document.getElementById('editRole').value
+            };
+
+            await db.collection('users').doc(userId).update(updates);
+            
+            showToast('User updated successfully!');
+            closeEditModal();
+            loadAllUsers();
+            loadStats();
+        }
+
+        function openDeleteModal(userId) {
+            document.getElementById('deleteUserId').value = userId;
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+        }
+
+        async function confirmDelete() {
+            const userId = document.getElementById('deleteUserId').value;
+            
+            await db.collection('users').doc(userId).delete();
+            
+            showToast('User deleted successfully!');
+            closeDeleteModal();
+            loadAllUsers();
+            loadStats();
+        }
+
+        async function loadSignals() {
+            const snapshot = await db.collection('signals')
+                .orderBy('timestamp', 'desc')
+                .limit(10)
+                .get();
+
+            let html = '';
+            snapshot.forEach(doc => {
+                const s = doc.data();
+                const time = s.timestamp ? new Date(s.timestamp.toDate()).toLocaleString() : 'Just now';
+                html += `
+                    <div style="padding: 15px; border-bottom: 1px solid #1E2229; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="color: #F0B90B;">${s.pair}</strong><br>
+                            Entry: ${s.entry} | TP: ${s.tp} | SL: ${s.sl}<br>
+                            <small style="color: #8A8F99;">${time}</small>
+                        </div>
+                        <button class="action-btn delete" onclick="deleteSignal('${doc.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            document.getElementById('recentSignals').innerHTML = html || '<p style="color: #8A8F99; padding: 20px;">No signals</p>';
+        }
+
+        async function postSignal() {
             const pair = document.getElementById('pair').value;
             const entry = document.getElementById('entry').value;
             const tp = document.getElementById('tp').value;
@@ -622,7 +910,7 @@
                 tp: parseFloat(tp),
                 sl: parseFloat(sl),
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                status: 'active'
+                postedBy: currentUser.email
             });
 
             alert('Signal posted!');
@@ -632,230 +920,43 @@
             document.getElementById('sl').value = '';
             loadSignals();
             loadStats();
-        };
-
-        // Load signals
-        async function loadSignals() {
-            const snapshot = await db.collection('signals')
-                .orderBy('timestamp', 'desc')
-                .limit(10)
-                .get();
-
-            let html = '';
-            snapshot.forEach(doc => {
-                const s = doc.data();
-                const time = s.timestamp ? new Date(s.timestamp.toDate()).toLocaleString() : 'Just now';
-                html += `
-                    <div style="padding:10px; border-bottom:1px solid #1E2229;">
-                        <strong style="color:#F0B90B;">${s.pair}</strong><br>
-                        Entry: ${s.entry} | TP: ${s.tp} | SL: ${s.sl}<br>
-                        <small style="color:#8A8F99;">${time}</small>
-                        <button class="btn-danger" style="float:right;" onclick="deleteSignal('${doc.id}')">Delete</button>
-                    </div>
-                `;
-            });
-            document.getElementById('recentSignals').innerHTML = html || '<p>No signals</p>';
         }
 
-        window.deleteSignal = async function(id) {
-            if (confirm('Delete?')) {
+        async function deleteSignal(id) {
+            if (confirm('Delete this signal?')) {
                 await db.collection('signals').doc(id).delete();
                 loadSignals();
-            }
-        };
-
-        // Load users for dropdown
-        async function loadUserDropdown() {
-            const snapshot = await db.collection('users').get();
-            let options = '<option value="">Select user</option>';
-            snapshot.forEach(doc => {
-                const user = doc.data();
-                options += `<option value="${doc.id}">${user.email}</option>`;
-            });
-            document.getElementById('specificUser').innerHTML = options;
-        }
-
-        // Toggle specific user dropdown
-        document.getElementById('messageTarget').addEventListener('change', function() {
-            document.getElementById('specificUserGroup').style.display = 
-                this.value === 'specific' ? 'block' : 'none';
-        });
-
-        // Preview message
-        function previewMessage() {
-            const title = document.getElementById('messageTitle').value || 'No title';
-            const content = document.getElementById('messageContent').value || 'No content';
-            
-            document.getElementById('previewTitle').textContent = title;
-            document.getElementById('previewBody').textContent = content;
-            document.getElementById('previewTime').textContent = 'Preview • ' + new Date().toLocaleString();
-            
-            document.getElementById('previewModal').classList.add('active');
-        }
-
-        function closePreview() {
-            document.getElementById('previewModal').classList.remove('active');
-        }
-
-        // Send message to users
-        window.sendMessage = async function() {
-            const target = document.getElementById('messageTarget').value;
-            const title = document.getElementById('messageTitle').value;
-            const content = document.getElementById('messageContent').value;
-            const type = document.getElementById('messageType').value;
-            const duration = parseInt(document.getElementById('messageDuration').value);
-
-            if (!title || !content) {
-                alert('Please enter title and content');
-                return;
-            }
-
-            let targetUsers = [];
-            
-            if (target === 'all') {
-                const snapshot = await db.collection('users').get();
-                targetUsers = snapshot.docs.map(doc => doc.id);
-            } else if (target === 'vip') {
-                const snapshot = await db.collection('users').where('subscription', '==', 'active').get();
-                targetUsers = snapshot.docs.map(doc => doc.id);
-            } else if (target === 'free') {
-                const snapshot = await db.collection('users').where('subscription', '==', 'inactive').get();
-                targetUsers = snapshot.docs.map(doc => doc.id);
-            } else if (target === 'specific') {
-                const userId = document.getElementById('specificUser').value;
-                if (!userId) {
-                    alert('Select a user');
-                    return;
-                }
-                targetUsers = [userId];
-            }
-
-            // Save message to database
-            const messageRef = await db.collection('messages').add({
-                title: title,
-                content: content,
-                type: type,
-                duration: duration,
-                target: target,
-                targetUsers: targetUsers,
-                sentBy: auth.currentUser.email,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                status: 'active'
-            });
-
-            alert(`Message sent to ${targetUsers.length} user(s)!`);
-            closePreview();
-            loadMessages();
-            
-            // Clear form
-            document.getElementById('messageTitle').value = '';
-            document.getElementById('messageContent').value = '';
-        };
-
-        // Load recent messages
-        async function loadMessages() {
-            const snapshot = await db.collection('messages')
-                .orderBy('timestamp', 'desc')
-                .limit(5)
-                .get();
-
-            let html = '';
-            snapshot.forEach(doc => {
-                const m = doc.data();
-                const time = m.timestamp ? new Date(m.timestamp.toDate()).toLocaleString() : 'Just now';
-                html += `
-                    <div style="padding:10px; border-bottom:1px solid #1E2229;">
-                        <strong style="color:${getMessageColor(m.type)};">${m.title}</strong><br>
-                        ${m.content}<br>
-                        <small style="color:#8A8F99;">To: ${m.target} • ${time}</small>
-                    </div>
-                `;
-            });
-            document.getElementById('recentMessages').innerHTML = html || '<p>No messages</p>';
-            document.getElementById('activeMessages').textContent = snapshot.size;
-        }
-
-        function getMessageColor(type) {
-            switch(type) {
-                case 'success': return '#02C076';
-                case 'warning': return '#F0B90B';
-                case 'error': return '#F6465D';
-                default: return '#2A7DE1';
+                loadStats();
             }
         }
 
-        // Load users for editing
-        async function loadUsers() {
-            const snapshot = await db.collection('users').get();
-            let html = '';
-            
-            snapshot.forEach(doc => {
-                const user = doc.data();
-                html += `
-                    <div class="user-row" id="user-${doc.id}">
-                        <div class="user-email">${user.email}</div>
-                        <div><input type="number" class="stat-input" id="trades-${doc.id}" value="${user.totalTrades || 0}"></div>
-                        <div><input type="number" class="stat-input" id="winrate-${doc.id}" value="${user.winRate || 0}"></div>
-                        <div><input type="number" class="stat-input" id="pips-${doc.id}" value="${user.totalPips || 0}"></div>
-                        <div>
-                            <button class="edit-btn" onclick="editUser('${doc.id}')">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="save-btn" onclick="saveUser('${doc.id}')" style="display:none;" id="save-${doc.id}">
-                                <i class="fas fa-save"></i> Save
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            document.getElementById('usersList').innerHTML = html;
-            document.getElementById('totalUsers').textContent = snapshot.size;
-            
-            // Count VIP users
-            let vipCount = 0;
-            snapshot.forEach(doc => {
-                if (doc.data().subscription === 'active') vipCount++;
-            });
-            document.getElementById('vipUsers').textContent = vipCount;
+        function switchTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            switchPanel(tab);
         }
 
-        // Edit user (enable inputs)
-        window.editUser = function(userId) {
-            document.querySelectorAll(`#user-${userId} .stat-input`).forEach(input => {
-                input.disabled = false;
-                input.style.background = '#1E2229';
-            });
-            document.querySelector(`#user-${userId} .edit-btn`).style.display = 'none';
-            document.querySelector(`#user-${userId} .save-btn`).style.display = 'inline-block';
-        };
+        function switchPanel(panel) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            
+            if (panel === 'dashboard') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('dashboardPanel').classList.add('active');
+            } else if (panel === 'users') {
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('usersPanel').classList.add('active');
+            } else if (panel === 'signals') {
+                document.querySelectorAll('.tab')[2].classList.add('active');
+                document.getElementById('signalsPanel').classList.add('active');
+            }
+        }
 
-        // Save user edits
-        window.saveUser = async function(userId) {
-            const trades = parseInt(document.getElementById(`trades-${userId}`).value) || 0;
-            const winRate = parseInt(document.getElementById(`winrate-${userId}`).value) || 0;
-            const pips = parseInt(document.getElementById(`pips-${userId}`).value) || 0;
-
-            await db.collection('users').doc(userId).update({
-                totalTrades: trades,
-                winRate: winRate,
-                totalPips: pips
-            });
-
-            document.querySelectorAll(`#user-${userId} .stat-input`).forEach(input => {
-                input.disabled = true;
-                input.style.background = '#0F1217';
-            });
-            document.querySelector(`#user-${userId} .edit-btn`).style.display = 'inline-block';
-            document.querySelector(`#user-${userId} .save-btn`).style.display = 'none';
-
-            alert('User stats updated!');
-        };
-
-        // Load stats
-        async function loadStats() {
-            const signalsSnap = await db.collection('signals').get();
-            document.getElementById('totalSignals').textContent = signalsSnap.size;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
     </script>
 </body>
