@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signals • FX Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0C0F;
+            color: white;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .back-btn {
+            background: #1E2229;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        h1 {
+            color: #2A7DE1;
+        }
+        .signals-grid {
+            display: grid;
+            gap: 20px;
+        }
+        .signal-card {
+            background: #14171C;
+            border: 1px solid #1E2229;
+            border-radius: 12px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+        }
+        .pair {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2A7DE1;
+        }
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .entry { color: #25C26E; }
+        .sl { color: #F75555; }
+        .tp { color: #25C26E; }
+        .time {
+            color: #8A8F99;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+            <h1><i class="fas fa-bell"></i> Trading Signals</h1>
+            <div></div>
+        </div>
+
+        <div class="signals-grid" id="signalsList">
+            <p style="color: #8A8F99;">Loading signals...</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-90tjTbXWkMXRBuCa7ltVz0HzaSiDN7o",
+            authDomain: "forex-saas.firebaseapp.com",
+            projectId: "forex-saas",
+            messagingSenderId: "1053073385587",
+            appId: "1:1053073385587:web:5ed7462994d8650e9c2206"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        db.collection('signals').orderBy('timestamp', 'desc').get()
+            .then((snapshot) => {
+                let html = '';
+                snapshot.forEach(doc => {
+                    const s = doc.data();
+                    const time = s.timestamp ? new Date(s.timestamp.toDate()).toLocaleString() : 'Just now';
+                    html += `
+                        <div class="signal-card">
+                            <div class="pair">${s.pair}</div>
+                            <div class="details">
+                                <div>Entry: <span class="entry">${s.entry}</span></div>
+                                <div>TP: <span class="tp">${s.tp}</span></div>
+                                <div>SL: <span class="sl">${s.sl}</span></div>
+                            </div>
+                            <div class="time">${time}</div>
+                        </div>
+                    `;
+                });
+                document.getElementById('signalsList').innerHTML = html || '<p>No signals yet</p>';
+            });
+    </script>
+</body>
+</html>

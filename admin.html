@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin • FX Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0C0F;
+            color: white;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: #0F1217;
+            border-right: 1px solid #1E2229;
+            padding: 24px 0;
+            position: fixed;
+            width: 260px;
+            height: 100vh;
+        }
+
+        .logo {
+            padding: 0 24px;
+            margin-bottom: 32px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #2A7DE1;
+        }
+
+        .nav-item {
+            padding: 12px 24px;
+            color: #8A8F99;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: #1A1E26;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #1A1E26;
+            color: #2A7DE1;
+            border-left-color: #2A7DE1;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .admin-badge {
+            background: #2A7DE1;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #14171C;
+            border: 1px solid #1E2229;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-card h3 {
+            color: #8A8F99;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .number {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2A7DE1;
+        }
+
+        /* Post Signal Form */
+        .post-signal {
+            background: #14171C;
+            border: 1px solid #1E2229;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .post-signal h2 {
+            margin-bottom: 20px;
+            color: #2A7DE1;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8A8F99;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: #0F1217;
+            border: 1px solid #1E2229;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2A7DE1;
+        }
+
+        .btn {
+            background: #2A7DE1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #1E4B8A;
+        }
+
+        /* Signals List */
+        .signals-list {
+            background: #14171C;
+            border: 1px solid #1E2229;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .signal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #1E2229;
+        }
+
+        .signal-item:last-child {
+            border-bottom: none;
+        }
+
+        .signal-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .delete-btn {
+            background: #F75555;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #d43b3b;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">FX PRO ADMIN</div>
+            <a href="admin.html" style="text-decoration: none;">
+                <div class="nav-item active">
+                    <i class="fas fa-dashboard"></i> Dashboard
+                </div>
+            </a>
+            <a href="admin-signals.html" style="text-decoration: none;">
+                <div class="nav-item">
+                    <i class="fas fa-bell"></i> Post Signals
+                </div>
+            </a>
+            <a href="admin-users.html" style="text-decoration: none;">
+                <div class="nav-item">
+                    <i class="fas fa-users"></i> Users
+                </div>
+            </a>
+            <a href="dashboard.html" style="text-decoration: none;">
+                <div class="nav-item">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </div>
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1>Admin Dashboard</h1>
+                <span class="admin-badge" id="adminEmail">Loading...</span>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Users</h3>
+                    <div class="number" id="totalUsers">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>VIP Users</h3>
+                    <div class="number" id="vipUsers">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Signals</h3>
+                    <div class="number" id="totalSignals">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Today's Signals</h3>
+                    <div class="number" id="todaySignals">0</div>
+                </div>
+            </div>
+
+            <!-- Post Signal Form -->
+            <div class="post-signal">
+                <h2><i class="fas fa-bullhorn"></i> Post New Signal</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Currency Pair</label>
+                        <input type="text" id="pair" placeholder="EUR/USD">
+                    </div>
+                    <div class="form-group">
+                        <label>Entry Price</label>
+                        <input type="number" id="entry" step="0.00001" placeholder="1.09250">
+                    </div>
+                    <div class="form-group">
+                        <label>Take Profit</label>
+                        <input type="number" id="tp" step="0.00001" placeholder="1.09500">
+                    </div>
+                    <div class="form-group">
+                        <label>Stop Loss</label>
+                        <input type="number" id="sl" step="0.00001" placeholder="1.09000">
+                    </div>
+                </div>
+                <button class="btn" onclick="postSignal()">
+                    <i class="fas fa-paper-plane"></i> Post Signal
+                </button>
+            </div>
+
+            <!-- Recent Signals -->
+            <div class="signals-list">
+                <h2 style="margin-bottom: 20px;">Recent Signals</h2>
+                <div id="recentSignals">
+                    <p style="color: #8A8F99; text-align: center;">Loading signals...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-90tjTbXWkMXRBuCa7ltVz0HzaSiDN7o",
+            authDomain: "forex-saas.firebaseapp.com",
+            projectId: "forex-saas",
+            messagingSenderId: "1053073385587",
+            appId: "1:1053073385587:web:5ed7462994d8650e9c2206"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Check if admin
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Check if admin
+            const doc = await db.collection('users').doc(user.uid).get();
+            if (!doc.exists || doc.data().role !== 'admin') {
+                alert('Admin access only!');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            document.getElementById('adminEmail').textContent = user.email;
+            loadStats();
+            loadSignals();
+        });
+
+        // Post signal
+        window.postSignal = async function() {
+            const pair = document.getElementById('pair').value;
+            const entry = document.getElementById('entry').value;
+            const tp = document.getElementById('tp').value;
+            const sl = document.getElementById('sl').value;
+
+            if (!pair || !entry || !tp || !sl) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            try {
+                await db.collection('signals').add({
+                    pair: pair,
+                    entry: parseFloat(entry),
+                    tp: parseFloat(tp),
+                    sl: parseFloat(sl),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: 'active'
+                });
+
+                alert('Signal posted!');
+                document.getElementById('pair').value = '';
+                document.getElementById('entry').value = '';
+                document.getElementById('tp').value = '';
+                document.getElementById('sl').value = '';
+                loadSignals();
+                loadStats();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        };
+
+        // Load stats
+        async function loadStats() {
+            // Total users
+            const usersSnap = await db.collection('users').get();
+            document.getElementById('totalUsers').textContent = usersSnap.size;
+
+            // VIP users
+            let vipCount = 0;
+            usersSnap.forEach(doc => {
+                if (doc.data().subscription === 'active') vipCount++;
+            });
+            document.getElementById('vipUsers').textContent = vipCount;
+
+            // Total signals
+            const signalsSnap = await db.collection('signals').get();
+            document.getElementById('totalSignals').textContent = signalsSnap.size;
+
+            // Today's signals
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            let todayCount = 0;
+            signalsSnap.forEach(doc => {
+                const time = doc.data().timestamp?.toDate();
+                if (time && time > today) todayCount++;
+            });
+            document.getElementById('todaySignals').textContent = todayCount;
+        }
+
+        // Load signals
+        async function loadSignals() {
+            const snapshot = await db.collection('signals')
+                .orderBy('timestamp', 'desc')
+                .limit(10)
+                .get();
+
+            const container = document.getElementById('recentSignals');
+            
+            if (snapshot.empty) {
+                container.innerHTML = '<p style="color: #8A8F99; text-align: center;">No signals yet</p>';
+                return;
+            }
+
+            let html = '';
+            snapshot.forEach(doc => {
+                const s = doc.data();
+                const time = s.timestamp ? new Date(s.timestamp.toDate()).toLocaleString() : 'Just now';
+                
+                html += `
+                    <div class="signal-item">
+                        <div class="signal-info">
+                            <span><strong>${s.pair}</strong></span>
+                            <span>Entry: ${s.entry}</span>
+                            <span>TP: ${s.tp}</span>
+                            <span>SL: ${s.sl}</span>
+                            <span style="color: #8A8F99;">${time}</span>
+                        </div>
+                        <button class="delete-btn" onclick="deleteSignal('${doc.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Delete signal
+        window.deleteSignal = async function(id) {
+            if (confirm('Delete this signal?')) {
+                await db.collection('signals').doc(id).delete();
+                loadSignals();
+                loadStats();
+            }
+        };
+    </script>
+</body>
+</html>

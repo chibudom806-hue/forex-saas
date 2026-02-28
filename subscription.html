@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe • FX Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0C0F;
+            color: white;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .back-btn {
+            background: #1E2229;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        h1 {
+            color: #2A7DE1;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .plan-card {
+            background: #14171C;
+            border: 1px solid #1E2229;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+        .plan-card.popular {
+            border-color: #2A7DE1;
+            transform: scale(1.05);
+        }
+        .plan-name {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .price {
+            font-size: 48px;
+            color: #2A7DE1;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        .price span {
+            font-size: 16px;
+            color: #8A8F99;
+        }
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        .features li {
+            padding: 10px 0;
+            color: #8A8F99;
+        }
+        .features li i {
+            color: #25C26E;
+            margin-right: 10px;
+        }
+        .subscribe-btn {
+            background: #2A7DE1;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .subscribe-btn:hover {
+            background: #1E4B8A;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+            <h1><i class="fas fa-crown"></i> Choose Your Plan</h1>
+            <div></div>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="plan-card">
+                <div class="plan-name">Free Tier</div>
+                <div class="price">$0<span>/month</span></div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Basic Signals</li>
+                    <li><i class="fas fa-check"></i> 5 Signals per day</li>
+                    <li><i class="fas fa-check"></i> Basic Charts</li>
+                    <li><i class="fas fa-times"></i> VIP Analysis</li>
+                    <li><i class="fas fa-times"></i> Priority Support</li>
+                </ul>
+                <button class="subscribe-btn" onclick="window.location.href='dashboard.html'">Current Plan</button>
+            </div>
+
+            <div class="plan-card popular">
+                <div class="plan-name">VIP Monthly</div>
+                <div class="price">$49<span>/month</span></div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Unlimited Signals</li>
+                    <li><i class="fas fa-check"></i> 24/7 Access</li>
+                    <li><i class="fas fa-check"></i> Advanced Charts</li>
+                    <li><i class="fas fa-check"></i> VIP Analysis</li>
+                    <li><i class="fas fa-check"></i> Priority Support</li>
+                </ul>
+                <button class="subscribe-btn" onclick="alert('Payment page coming soon!')">Upgrade Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
